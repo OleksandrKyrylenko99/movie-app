@@ -1,6 +1,6 @@
 import { Component, inject } from '@angular/core';
 import { MovieFormService } from '../../service/movie-service/movie-form.service';
-import { AddedMovieComponent } from '../../components/added-movie/components/added-movie/added-movie/added-movie.component';
+import { AddedMovieComponent } from '../../components/added-movie/added-movie.component';
 
 @Component({
   selector: 'app-header',
