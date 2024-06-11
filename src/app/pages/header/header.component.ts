@@ -1,11 +1,11 @@
 import { Component, inject } from '@angular/core';
 import { MovieFormService } from '../../service/movie-service/movie-form.service';
-import { AddedMovieComponent } from '../../components/added-movie/added-movie.component';
+import { MovieListComponent } from '../../components/movie-list/movie-list.component';
 
 @Component({
   selector: 'app-header',
   standalone: true,
-  imports: [AddedMovieComponent],
+  imports: [MovieListComponent],
   templateUrl: './header.component.html',
   styleUrl: './header.component.scss'
 })

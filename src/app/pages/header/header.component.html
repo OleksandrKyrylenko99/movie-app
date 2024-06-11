@@ -8,32 +8,14 @@
                         <i class='bx bxs-heart'></i>
                         <span class="count">{{form.favouriteList.value.length}}</span>
                     </a>
-                    <ul class="action__sub-list sub-list">
-                        @if(form.favouriteList.value.length > 0){
-                            @for(movie of form.favouriteList.value; track movie){
-                                <app-added-movie [data]="movie"></app-added-movie>
-                            }
-                        }
-                        @else{
-                            <li>Список порожній</li>
-                        }
-                    </ul>
+                    <app-movie-list class="action__sub-list sub-list" [data]="form.favouriteList.value"/>
                 </li>
                 <li>
                     <a class="action__watch-list">
                         <i class='bx bx-bookmark'></i>
                         <span class="count">{{form.watchList.value.length}}</span>
                     </a>
-                    <ul class="action__sub-list sub-list">
-                        @if(form.watchList.value.length > 0){
-                            @for(movie of form.watchList.value; track movie){
-                                <app-added-movie [data]="movie"></app-added-movie>
-                            }
-                        }
-                        @else{
-                            <li>Список порожній</li>
-                        }
-                    </ul>
+                    <app-movie-list class="action__sub-list sub-list" [data]="form.watchList.value"/>
                 </li>
             </ul>
         </nav>
