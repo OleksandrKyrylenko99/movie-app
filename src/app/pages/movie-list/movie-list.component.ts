@@ -1,4 +1,4 @@
-import { Component, OnInit, inject } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { MovieCardComponent } from './movie-card/movie-card.component';
 import { MOVIE_DATA } from '../../models/movie-data';
 import { MovieInfo } from '../../types/movie-info.types';
@@ -13,40 +13,15 @@ import { MovieFormService } from '../../service/movie-service/movie-form.service
   templateUrl: './movie-list.component.html',
   styleUrl: './movie-list.component.scss'
 })
-export class MovieListComponent implements OnInit{
+export class MovieListComponent {
   movieData : MovieInfo[] = MOVIE_DATA
-  // arrFavouriteMovie : MovieList[] = []
-  // arrWatchListMovie : MovieList[] = []
   movieService = inject(MovieFormService)
-  ngOnInit(): void {
-    
-  }
+
   updateFavouriteMovie(movie: MovieList) {
-    // const checkingMovieList = this.movieService.form.controls.favouriteList.value.find(m => m)
-    // console.log(movie)
-
-    let valueInFavouriteList = this.movieService.form.controls.favouriteList.value
-    // const isMovieInArray = valueInFavouriteList.some(movie => movie.id === movie.id);
-    // console.log(isMovieInArray)
-    // if(isMovieInArray){
-    //   console.log(isMovieInArray)
-    //   valueInFavouriteList = valueInFavouriteList.filter(m => m.id !== movie.id)
-    //   console.log(valueInFavouriteList)
-
-    //   return
-    // }
-    valueInFavouriteList.unshift(movie)
-    // console.log(valueInFavouriteList)
-
-    // this.arrFavouriteMovie.unshift(movie)
-    // console.log( this.arrFavouriteMovie);
-    
+    this.movieService.form.controls.favouriteList.value.unshift(movie)
   }
-    updateWatchList(movie: MovieList) {
-      this.movieService.form.controls.watchList.value.unshift(movie)
-
-      // this.arrWatchListMovie.unshift(movie)
-      // console.log( this.arrWatchListMovie);  
-    }
-
+  
+  updateWatchList(movie: MovieList) {
+    this.movieService.form.controls.watchList.value.unshift(movie)
+  }
 }

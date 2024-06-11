@@ -17,11 +17,12 @@ export class MovieCardComponent implements OnInit{
   @Output() onAddWatchList : EventEmitter<MovieList> = new EventEmitter<MovieList>()
   movieService = inject(MovieFormService)
 
-  public movie! : MovieInfo
+  public movies! : MovieInfo
   public favourite = false
   public watchList = false
+
   ngOnInit(): void {
-    this.movie = this.data
+    this.movies = this.data
   }
   
   addFavourite(){
@@ -45,22 +46,24 @@ export class MovieCardComponent implements OnInit{
     }
     this.onAddWatchList.emit(movie)
   }
+  
   createMovie(movie : MovieList[]) : MovieList | null{
-    const isMovieInArray = movie.some(movie => movie.id === this.movie.id);
+    const isMovieInArray = movie.some(movie => movie.id === this.movies.id);
     if(isMovieInArray){
       return null
     }
     const data : MovieList = {
-      backdrop_path: this.movie.backdrop_path,
-      id : this.movie.id,
-      title : this.movie.title,
-      release_year: this.movie.release_year,
-      vote_average: this.movie.vote_average
+      backdrop_path: this.movies.backdrop_path,
+      id : this.movies.id,
+      title : this.movies.title,
+      release_year: this.movies.release_year,
+      vote_average: this.movies.vote_average
     }
     return data
   }
+
   filterList(valueInFavouriteList:MovieList[],favouriteList:string){
-    const filterValueList = valueInFavouriteList.filter(m => m.id !== this.movie.id)
+    const filterValueList = valueInFavouriteList.filter(m => m.id !== this.movies.id)
     this.movieService.form.get(favouriteList)?.setValue(filterValueList)
   }
 }
