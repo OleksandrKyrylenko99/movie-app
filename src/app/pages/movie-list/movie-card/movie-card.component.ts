@@ -30,8 +30,7 @@ export class MovieCardComponent implements OnInit{
     const movie = this.createMovie(valueInFavouriteList)
     this.favourite = !this.favourite
     if(movie === null) {
-      this.filterList(valueInFavouriteList,'favouriteList')
-      return
+      return this.filterList(valueInFavouriteList,'favouriteList')
     }
     this.onAddFavourite.emit(movie)
   }
@@ -46,7 +45,7 @@ export class MovieCardComponent implements OnInit{
     }
     this.onAddWatchList.emit(movie)
   }
-  
+
   createMovie(movie : MovieList[]) : MovieList | null{
     const isMovieInArray = movie.some(movie => movie.id === this.movies.id);
     if(isMovieInArray){

@@ -3,7 +3,7 @@ import { MovieInfo } from "../types/movie-info.types";
 export const MOVIE_DATA : MovieInfo[] = [ 
   {
     adult: false,
-    backdrop_path: "https://uaserial.club/images/serials/64/640b4fba16572439857264.webp",
+    backdrop_path: "../../assets/640b4fba16572439857264.webp",
     genre_ids: [
       878,
       12
@@ -24,7 +24,7 @@ export const MOVIE_DATA : MovieInfo[] = [
   },
   {
     adult: false,
-    backdrop_path: "https://uaserial.club/images/serials/64/640c810004d50606721636.webp",
+    backdrop_path: "../../assets/640c810004d50606721636.webp",
     genre_ids: [
       10752,
       28,
@@ -45,7 +45,7 @@ export const MOVIE_DATA : MovieInfo[] = [
   },
   {
     adult: false,
-    backdrop_path: "https://uaserial.club/images/serials/64/640b4fcea031a527937622.webp",
+    backdrop_path: "../../assets/640b4fcea031a527937622.webp",
     genre_ids: [
       27,
       53,
@@ -67,7 +67,7 @@ export const MOVIE_DATA : MovieInfo[] = [
   },
   {
     adult: false,
-    backdrop_path: "https://uaserial.club/images/serials/64/6411a03aec420340727509.webp",
+    backdrop_path: "../../assets/6411a03aec420340727509.webp",
     genre_ids: [
       878,
       28,
