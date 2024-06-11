@@ -1,0 +1,10 @@
+<li class="movie__item movie">
+    <div class="movie__image">
+        <img [src]="data.backdrop_path" [alt]="data.title">
+    </div>
+    <div class="movie__info">
+        <h3 class="movie__title">{{data.title}}</h3>
+        <div class="movie__average"><i class='bx bx-star'></i> {{data.vote_average}}</div>
+        <div class="movie__release"><i class='bx bxs-calendar'></i> {{data.release_year}}</div>
+    </div>
+</li>
