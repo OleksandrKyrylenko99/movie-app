@@ -1,10 +1,10 @@
-import { Component, inject } from '@angular/core';
-import { MovieCardComponent } from './movie-card/movie-card.component';
+import { Component, EventEmitter, Output } from '@angular/core';
+import { MovieCardComponent } from '../../components/movie-list/movie-card/movie-card.component';
 import { MOVIE_DATA } from '../../models/movie-data';
-import { MovieInfo } from '../../types/movie-info.types';
+import { MovieInfo } from '../../types/movie-info.type';
 import { NgFor, NgIf } from '@angular/common';
-import { MovieList } from '../../types/movie-list.types';
-import { MovieFormService } from '../../service/movie-service/movie-form.service';
+import { Movie } from '../../types/movie.type';
+import { MovieObjList } from '../../types/movie-object-list.type';
 
 @Component({
   selector: 'app-movie-list',
@@ -14,14 +14,19 @@ import { MovieFormService } from '../../service/movie-service/movie-form.service
   styleUrl: './movie-list.component.scss'
 })
 export class MovieListComponent {
+  @Output() changeMovieList : EventEmitter<MovieObjList> = new EventEmitter<MovieObjList>()
   movieData : MovieInfo[] = MOVIE_DATA
-  movieService = inject(MovieFormService)
-
-  updateFavouriteMovie(movie: MovieList) {
-    this.movieService.form.controls.favouriteList.value.unshift(movie)
+  movieObjList : MovieObjList = {
+    favouriteList : [],
+    watchList : []
+  }
+  updateFavouriteMovie(movie: Movie) {
+    this.movieObjList.favouriteList.unshift(movie)
+    this.changeMovieList.emit(this.movieObjList)
   }
   
-  updateWatchList(movie: MovieList) {
-    this.movieService.form.controls.watchList.value.unshift(movie)
+  updateWatchList(movie: Movie) {
+    this.movieObjList.watchList.unshift(movie)
+    this.changeMovieList.emit(this.movieObjList)
   }
 }
