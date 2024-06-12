@@ -1,0 +1,23 @@
+<header class="header">
+    <div class="header__container">
+        <a class="header__logo">Cinema</a>
+        <nav class="header__actions action">
+            <ul class="action__list">
+                <li>
+                    <a class="action__favourite">
+                        <i class='bx bxs-heart'></i>
+                        <span class="count">{{movieObjList!.favouriteList!.length}}</span>
+                    </a>
+                    <app-movie-select-list class="action__sub-list sub-list" [data]="movieObjList!.favouriteList!"/>
+                </li>
+                <li>
+                    <a class="action__watch-list">
+                        <i class='bx bx-bookmark'></i>
+                        <span class="count">{{movieObjList!.watchList!.length}}</span>
+                    </a>
+                    <app-movie-select-list class="action__sub-list sub-list" [data]="movieObjList!.watchList!"/>
+                </li>
+            </ul>
+        </nav>
+    </div>
+</header>

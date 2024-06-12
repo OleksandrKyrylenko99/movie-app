@@ -1,0 +1,18 @@
+<section class="movie-list__section section">
+    <div class="section__container">
+        <div class="movie__cards">
+            @if(movieData.length){
+                @for(movies of movieData; track movies){
+                    <app-movie-card 
+                        [data]="movies" 
+                        (onAddFavourite)="updateFavouriteMovie($event)"
+                        (onAddWatchList)="updateWatchList($event)"
+                        [movieObjList]="movieObjList">
+                    </app-movie-card>
+                }
+            }@else {
+                <p>Список фільмів порожній :(</p>
+            }
+        </div>
+    </div>
+</section>

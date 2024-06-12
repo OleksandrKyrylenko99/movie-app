@@ -30,7 +30,9 @@
               "src/assets"
             ],
             "styles": [
-              "src/styles.scss"
+              "src/styles.scss",
+              "../angular-movie/node_modules/reset-css/reset.css",
+              "../angular-movie/node_modules/boxicons/css/boxicons.min.css"
             ],
             "scripts": []
           },

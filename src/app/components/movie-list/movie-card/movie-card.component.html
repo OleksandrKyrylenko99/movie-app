@@ -1,0 +1,19 @@
+<div class="movie__card card-movie">
+    <div class="card-movie__average">{{movie.vote_average}}</div>
+    <div class="card-movie__image">
+        <img [src]="movie.backdrop_path" [alt]="movie.title">
+        <i class='bx bx-play'></i>
+        <i [ngClass]="favourite ? 'selected' : 'not-selected'" class='bx bx-heart' (click)="addFavourite()"></i>
+        <i [ngClass]="watchList ? 'selected' : 'not-selected'" class='bx bx-bookmark' (click)="addWatchList()"></i>
+    </div>
+    <div class="card-movie__item">
+        <a class="card-movie__title">{{movie.title}}</a>
+        <div class="card-movie__info info-movie">
+            <span class="info-movie__release-date">{{movie.release_year}}</span>
+            @for(genre of movie.genres; track genre){
+                <span class="info-movie__genres">{{genre}}</span> 
+            }
+        </div>
+    </div>
+</div>
+
