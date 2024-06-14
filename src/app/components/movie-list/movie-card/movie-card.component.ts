@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, ElementRef, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { MovieInfo } from '../../../types/movie-info.type';
 import { Movie } from '../../../types/movie.type';
 import { NgClass } from '@angular/common';
@@ -9,10 +9,9 @@ import { ShortenPipe } from '../../../pipes/shorten/shorten.pipe';
 @Component({
   selector: 'app-movie-card',
   standalone: true,
-  imports: [NgClass, TitleCaseWordsPipe, ShortenPipe],
+  imports: [NgClass,TitleCaseWordsPipe,ShortenPipe],
   templateUrl: './movie-card.component.html',
   styleUrl: './movie-card.component.scss',
-  changeDetection:ChangeDetectionStrategy.OnPush
 })
 export class MovieCardComponent implements OnInit{
   ngOnInit(): void {

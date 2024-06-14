@@ -6,7 +6,7 @@ import { FormsModule } from '@angular/forms';
 @Component({
   selector: 'app-header',
   standalone: true,
-  imports: [MovieSelectListComponent, FormsModule ],
+  imports: [MovieSelectListComponent,FormsModule],
   templateUrl: './header.component.html',
   styleUrl: './header.component.scss'
 })
