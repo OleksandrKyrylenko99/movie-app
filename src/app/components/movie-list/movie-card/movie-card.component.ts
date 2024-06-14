@@ -1,17 +1,24 @@
-import { Component, ElementRef, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { ChangeDetectionStrategy, Component, ElementRef, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { MovieInfo } from '../../../types/movie-info.type';
 import { Movie } from '../../../types/movie.type';
 import { NgClass } from '@angular/common';
 import { MovieObjList } from '../../../types/movie-object-list.type';
+import { TitleCaseWordsPipe } from '../../../pipes/title-words/title-case-words.pipe';
+import { ShortenPipe } from '../../../pipes/shorten/shorten.pipe';
 
 @Component({
   selector: 'app-movie-card',
   standalone: true,
-  imports: [NgClass],
+  imports: [NgClass, TitleCaseWordsPipe, ShortenPipe],
   templateUrl: './movie-card.component.html',
-  styleUrl: './movie-card.component.scss'
+  styleUrl: './movie-card.component.scss',
+  changeDetection:ChangeDetectionStrategy.OnPush
 })
 export class MovieCardComponent implements OnInit{
+  ngOnInit(): void {
+    this.movie = this.data
+  }
+
   @Input() data! : MovieInfo
   @Input() movieObjList! : MovieObjList
   @Output() onAddFavourite : EventEmitter<Movie> = new EventEmitter<Movie>()
@@ -21,9 +28,6 @@ export class MovieCardComponent implements OnInit{
   public favourite = false
   public watchList = false
 
-  ngOnInit(): void {
-    this.movie = this.data
-  }
   
   addFavourite(){
     const valueInFavouriteList = this.movieObjList.favouriteList 
@@ -56,7 +60,8 @@ export class MovieCardComponent implements OnInit{
       id : this.movie.id,
       title : this.movie.title,
       release_year: this.movie.release_year,
-      vote_average: this.movie.vote_average
+      vote_average: this.movie.vote_average,
+      duration_movie: this.movie.duration_movie
     }
     return data
   }
@@ -69,4 +74,5 @@ export class MovieCardComponent implements OnInit{
       this.movieObjList.watchList = filterValueList
     }
   }
+
 }

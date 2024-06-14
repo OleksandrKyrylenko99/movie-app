@@ -5,9 +5,10 @@
                 <img [src]="movie.backdrop_path" [alt]="movie.title">
             </div>
             <div class="movie__info">
-                <h3 class="movie__title">{{movie.title}}</h3>
+                <h3 class="movie__title">{{movie.title | titleCaseWords}}</h3>
                 <div class="movie__average"><i class='bx bx-star'></i> {{movie.vote_average}}</div>
                 <div class="movie__release"><i class='bx bxs-calendar'></i> {{movie.release_year}}</div>
+                <div class="movie__duration"><i class='bx bx-time'></i>{{movie.duration_movie | durationMovie}}</div>
             </div>
         </li>
     }

@@ -39,18 +39,19 @@
         gap:.3125rem;
         padding-top: .3125rem;
         padding-bottom: .3125rem;
-        font-size: .875rem;
+        font-size: .75rem;
         div{
             display: flex;
             align-items: center;
-            gap:.25rem;
+            gap:.3125rem;
         }
     }
 
     // .movie__title
 
     &__title {
-        font-size: .875rem;
+        font-size: .75rem;
+        line-height: 1.2;
     }
 
     // .movie__average
@@ -70,4 +71,7 @@
 }
 .bxs-calendar {
     color:rgb(1, 1, 2);
+}
+.bx-time{
+    color:rgb(26, 215, 193);
 }

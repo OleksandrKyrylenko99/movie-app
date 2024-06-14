@@ -7,11 +7,13 @@
         <i [ngClass]="watchList ? 'selected' : 'not-selected'" class='bx bx-bookmark' (click)="addWatchList()"></i>
     </div>
     <div class="card-movie__item">
-        <a class="card-movie__title">{{movie.title}}</a>
+        <a class="card-movie__title">{{movie.title | titleCaseWords}}</a>
         <div class="card-movie__info info-movie">
             <span class="info-movie__release-date">{{movie.release_year}}</span>
-            @for(genre of movie.genres; track genre){
-                <span class="info-movie__genres">{{genre}}</span> 
+            @for(genre of movie.genres; track genre; let idx = $index){
+                @if(idx < 3){
+                    <span class="info-movie__genres">{{genre | shorten}}</span> 
+                }
             }
         </div>
     </div>

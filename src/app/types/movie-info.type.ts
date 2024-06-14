@@ -13,6 +13,7 @@ export type MovieInfo = {
     release_year: string
     title: string
     video: boolean
-    vote_average: number
+    vote_average: string
     vote_count: number
+    duration_movie: string
 }
