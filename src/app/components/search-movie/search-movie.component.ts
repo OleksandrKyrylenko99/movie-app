@@ -6,10 +6,9 @@ import { HeaderComponent } from '../header/header.component';
   standalone: true,
   imports: [],
   templateUrl: './search-movie.component.html',
-  styleUrl: './search-movie.component.scss'
+  styleUrl: './search-movie.component.scss',
 })
-export class SearchMovieComponent implements OnInit{
-  constructor(){} 
-    ngOnInit(): void {
-  }
+export class SearchMovieComponent implements OnInit {
+  constructor() {}
+  ngOnInit(): void {}
 }

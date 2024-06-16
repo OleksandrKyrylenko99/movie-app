@@ -1,23 +1,22 @@
 import { Pipe, PipeTransform } from '@angular/core';
+import { capitalizeFirstLetter } from '../../helper/capitalize-first-letter';
 
 @Pipe({
   name: 'titleCaseWords',
-  standalone: true
+  standalone: true,
 })
 export class TitleCaseWordsPipe implements PipeTransform {
-
   transform(value: string): string {
-    if(!value) return value 
+    if (!value) return '';
 
-    const toTitleCase = (word: string) => word.charAt(0).toUpperCase() + word.slice(1).toLowerCase()
-    
-    return value.split(' ')
+    return value
+      .split(' ')
       .map((word, index) => {
         if (index === 0 || word.length >= 2) {
-          return toTitleCase(word)
+          return capitalizeFirstLetter(word);
         }
-        return word.toLowerCase()
+        return word.toLowerCase();
       })
-      .join(' ')
+      .join(' ');
   }
 }

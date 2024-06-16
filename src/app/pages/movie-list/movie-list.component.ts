@@ -4,29 +4,30 @@ import { MOVIE_DATA } from '../../models/movie-data';
 import { MovieInfo } from '../../types/movie-info.type';
 import { NgFor, NgIf } from '@angular/common';
 import { Movie } from '../../types/movie.type';
-import { MovieObjList } from '../../types/movie-object-list.type';
+import { MovieList } from '../../types/movie-object-list.type';
 
 @Component({
   selector: 'app-movie-list',
   standalone: true,
-  imports: [MovieCardComponent,NgIf,NgFor],
+  imports: [MovieCardComponent, NgIf, NgFor],
   templateUrl: './movie-list.component.html',
-  styleUrl: './movie-list.component.scss'
+  styleUrl: './movie-list.component.scss',
 })
 export class MovieListComponent {
-  @Output() changeMovieList : EventEmitter<MovieObjList> = new EventEmitter<MovieObjList>()
-  movieData : MovieInfo[] = MOVIE_DATA
-  movieObjList : MovieObjList = {
-    favouriteList : [],
-    watchList : []
-  }
+  @Output() changeMovieList: EventEmitter<MovieList> =
+    new EventEmitter<MovieList>();
+  movieData: MovieInfo[] = MOVIE_DATA;
+  movieList: MovieList = {
+    favouriteList: [],
+    watchList: [],
+  };
   updateFavouriteMovie(movie: Movie) {
-    this.movieObjList.favouriteList.unshift(movie)
-    this.changeMovieList.emit(this.movieObjList)
+    this.movieList.favouriteList.unshift(movie);
+    this.changeMovieList.emit(this.movieList);
   }
-  
+
   updateWatchList(movie: Movie) {
-    this.movieObjList.watchList.unshift(movie)
-    this.changeMovieList.emit(this.movieObjList)
+    this.movieList.watchList.unshift(movie);
+    this.changeMovieList.emit(this.movieList);
   }
 }
