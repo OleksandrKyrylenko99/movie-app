@@ -43,6 +43,7 @@
         align-self: stretch;
         overflow: hidden;
         cursor: pointer;
+        flex:1 1 auto;
         &::after{
             content:'';
             position: absolute;
