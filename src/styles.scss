@@ -1,6 +1,4 @@
-/* You can add global styles to this file, and also import other style files */
-// @import url("https://fonts.googleapis.com/css?family=Roboto:regular@display=swap");
-// @import url("https://fonts.googleapis.com/css?family=Griffy:regular@display=swap");
+
 body{
 }
 [class*="__container"]{
@@ -9,3 +7,5 @@ body{
     padding: .3125rem .9375rem;
     box-sizing: border-box; 
 }
+html, body { height: 100%; }
+body { margin: 0; font-family: "Helvetica Neue", sans-serif; }

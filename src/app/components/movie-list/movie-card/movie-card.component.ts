@@ -5,11 +5,21 @@ import { NgClass } from '@angular/common';
 import { MovieList } from '../../../types/movie-object-list.type';
 import { TitleCaseWordsPipe } from '../../../pipes/title-words/title-case-words.pipe';
 import { ShortenPipe } from '../../../pipes/shorten/shorten.pipe';
+import { MatButtonModule } from '@angular/material/button';
+import { MatCardModule } from '@angular/material/card';
+import { MatIconModule } from '@angular/material/icon';
 
 @Component({
   selector: 'app-movie-card',
   standalone: true,
-  imports: [NgClass, TitleCaseWordsPipe, ShortenPipe],
+  imports: [
+    NgClass,
+    TitleCaseWordsPipe,
+    ShortenPipe,
+    MatButtonModule,
+    MatCardModule,
+    MatIconModule,
+  ],
   templateUrl: './movie-card.component.html',
   styleUrl: './movie-card.component.scss',
 })

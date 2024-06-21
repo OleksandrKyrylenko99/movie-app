@@ -1,20 +1,28 @@
-<div class="movie__card card-movie">
+<mat-card>
   <div class="card-movie__average">{{ data.vote_average }}</div>
   <div class="card-movie__image">
-    <img [src]="data.backdrop_path" [alt]="data.title" />
-    <i class="bx bx-play"></i>
-    <i
-      [ngClass]="isFavourite ? 'selected' : 'not-selected'"
-      class="bx bx-heart"
+    <img mat-card-image [src]="data.backdrop_path" [alt]="data.title" />
+    <button
+      mat-icon-button
       (click)="addFavourite()"
-    ></i>
-    <i
+      [ngClass]="isFavourite ? 'selected' : 'not-selected'"
+      class="favorite"
+    >
+      <mat-icon>favorite_border</mat-icon>
+    </button>
+    <button
+      mat-icon-button
       [ngClass]="isWatchList ? 'selected' : 'not-selected'"
-      class="bx bx-bookmark"
       (click)="addWatchList()"
-    ></i>
+      class="watch-list"
+    >
+      <mat-icon>bookmark_border</mat-icon>
+    </button>
+    <button mat-icon-button class="play">
+      <mat-icon>play_arrow</mat-icon>
+    </button>
   </div>
-  <div class="card-movie__item">
+  <mat-card-content>
     <a class="card-movie__title">{{ data.title | titleCaseWords }}</a>
     <div class="card-movie__info info-movie">
       <span class="info-movie__release-date">{{ data.release_year }}</span>
@@ -22,5 +30,5 @@
       <span class="info-movie__genres">{{ genre | shorten }}</span>
       } }
     </div>
-  </div>
-</div>
+  </mat-card-content>
+</mat-card>
