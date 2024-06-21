@@ -1,0 +1,41 @@
+// Custom Theming for Angular Material
+@use '@angular/material' as mat;
+// For more information: https://material.angular.io/guide/theming
+
+// Plus imports for other components in your app.
+
+// Include the common styles for Angular Material. We include this here so that you only
+// have to load a single css file for Angular Material in your app.
+// Be sure that you only ever include this mixin once!
+@include mat.all-component-typographies(mat.define-typography-config($font-family: Roboto));
+@include mat.core();
+
+// Define the palettes for your theme using the Material Design palettes available in palette.scss
+// (imported above). For each palette, you can optionally specify a default, lighter, and darker
+// hue. Available color palettes: https://material.io/design/color/
+$angular-movie-primary: mat.define-palette(mat.$indigo-palette);
+$angular-movie-accent: mat.define-palette(mat.$pink-palette, A200, A100, A400);
+
+// The warn palette is optional (defaults to red).
+$angular-movie-warn: mat.define-palette(mat.$red-palette);
+
+// Create the theme object. A theme consists of configurations for individual
+// theming systems such as "color" or "typography".
+$angular-movie-theme: mat.define-light-theme((
+  color: (
+    primary: $angular-movie-primary,
+    accent: $angular-movie-accent,
+    warn: $angular-movie-warn,
+  ),
+  typography: mat.define-typography-config(),
+  density: 0
+));
+
+// Include theme styles for core and each component used in your app.
+// Alternatively, you can import and @include the theme mixins for each component
+// that you are using.
+@include mat.all-component-themes($angular-movie-theme);
+
+/* You can add global styles to this file, and also import other style files */
+// @import url("https://fonts.googleapis.com/css?family=Roboto:regular@display=swap");
+// @import url("https://fonts.googleapis.com/css?family=Griffy:regular@display=swap");
