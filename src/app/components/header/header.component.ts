@@ -1,4 +1,4 @@
-import { Component, HostListener, Input } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { MovieSelectListComponent } from '../movie-select-list/movie-select-list.component';
 import { MovieList } from '../../types/movie-object-list.type';
 import { FormsModule } from '@angular/forms';
