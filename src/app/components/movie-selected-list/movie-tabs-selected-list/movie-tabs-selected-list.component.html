@@ -1,0 +1,53 @@
+@if(data.length){
+<div class="movie__tabs tabs">
+  @for(movie of data; track movie){
+  <div class="tabs__item item">
+    <div class="item__image">
+      <img [src]="movie.backdrop_path" [alt]="movie.title" />
+      <div class="item__info">
+        <!-- <h4 class="item__title">{{ movie.title | titleCaseWords }}</h4> -->
+        <div class="item__details details">
+          <div class="details__item rating">
+            <i class="bx bx-star"></i>{{ movie.vote_average }}
+          </div>
+          <div class="details__item duration">
+            <i class="bx bx-time"></i> {{ movie.duration_movie | timeFormat }}
+          </div>
+          <div class="details__item years">
+            <i class="bx bxs-calendar"></i> {{ movie.release_year }}
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="item__actions actions">
+      <button
+        type="button"
+        class="actions__watch"
+        [routerLink]="['/movie-details/', movie.id]"
+      >
+        Дивитись
+      </button>
+      <button type="button" class="actions__delete">
+        <mat-icon>delete_forever</mat-icon>
+      </button>
+    </div>
+    <!-- <div class="item__details">
+      <div class="item__info">
+        <h4 class="item__title">{{ movie.title | titleCaseWords }}</h4>
+        <div class="item__rating">{{ movie.vote_average }}</div>
+        <div class="item__duration">
+          {{ movie.duration_movie | timeFormat }}
+        </div>
+        <div class="item__years">{{ movie.release_year }}</div>
+      </div>
+      <div class="item__actions actions">
+        <button type="button" class="actions__delete">
+          <mat-icon>delete_forever</mat-icon>
+        </button>
+        <button type="button" class="actions__watch">Дивитись</button>
+      </div>
+    </div> -->
+  </div>
+  }
+</div>
+}

@@ -1,19 +1,35 @@
-import { Component, Input } from '@angular/core';
-import { MovieSelectListComponent } from '../movie-select-list/movie-select-list.component';
-import { MovieList } from '../../types/movie-object-list.type';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { NgClass } from '@angular/common';
+import { MatToolbarModule } from '@angular/material/toolbar';
+import { MatIconModule } from '@angular/material/icon';
+import { MatInputModule } from '@angular/material/input';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { SelectedMovieService } from '../../service/selected-movie/selected-movie.service';
+import { RouterLink } from '@angular/router';
+import { MovieHeaderSelectedListComponent } from '../movie-selected-list/movie-header-selected-list/movie-header-select-list.component';
 
 @Component({
   selector: 'app-header',
   standalone: true,
-  imports: [MovieSelectListComponent, FormsModule, NgClass],
+  imports: [
+    MovieHeaderSelectedListComponent,
+    FormsModule,
+    NgClass,
+    MatToolbarModule,
+    MatIconModule,
+    MatInputModule,
+    MatFormFieldModule,
+    RouterLink,
+  ],
   templateUrl: './header.component.html',
   styleUrl: './header.component.scss',
 })
 export class HeaderComponent {
-  @Input() movieList: MovieList = {
-    favouriteList: [],
-    watchList: [],
-  };
+  constructor(private selectMovieService: SelectedMovieService) {}
+  movieList = this.selectMovieService.movieList.value;
+  @Output() toggleSidebarForMe: EventEmitter<any> = new EventEmitter();
+  toggleSidebar() {
+    this.toggleSidebarForMe.emit();
+  }
 }

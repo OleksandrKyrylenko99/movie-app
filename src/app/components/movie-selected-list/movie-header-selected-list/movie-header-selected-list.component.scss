@@ -10,6 +10,7 @@
     padding: 0.3125rem;
     border-radius: 5px;
     cursor: pointer;
+    position: relative;
   }
 
   // .movie__image
@@ -41,6 +42,11 @@
     padding-bottom: 0.3125rem;
     font-size: 0.75rem;
     line-height: 1.2;
+    div {
+      display: flex;
+      align-items: center;
+      gap: 0.25rem;
+    }
   }
 
   // .movie__title
@@ -70,4 +76,13 @@
 }
 .bx-time {
   color: rgb(26, 215, 193);
+}
+mat-icon {
+  color: red;
+  display: flex;
+  align-self: flex-end;
+  align-items: flex-end;
+  position: absolute;
+  bottom: 5px;
+  right: 0px;
 }

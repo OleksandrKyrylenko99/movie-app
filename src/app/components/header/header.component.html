@@ -1,28 +1,87 @@
+<!-- <mat-toolbar class="header">
+  <button
+    mat-icon-button
+    class="example-icon"
+    aria-label="Example icon-button with menu icon"
+  >
+    <mat-icon>menu</mat-icon>
+  </button>
+  <span class="header__logo">Cinema</span>
+  <span class="example-spacer"></span>
+  <div class="header__actions">
+    <div class="action__search">
+      <button type="button"><i class="bx bx-search-alt-2"></i></button>
+      <input type="text" class="search-input" placeholder="Пошук фільмів" />
+    </div>
+    <ul class="action__list">
+      <li>
+        <button
+          [matMenuTriggerFor]="menu"
+          mat-icon-button
+          class="example-icon favorite-icon"
+          aria-label="Example icon-button with heart icon"
+        >
+          <mat-icon color="primary">favorite</mat-icon>
+          <div
+            [matBadge]="movieList!.favouriteList!.length"
+            matBadgeSize="small"
+            class="demo-section count"
+          ></div>
+        </button>
+        <mat-menu #menu="matMenu">
+          <app-movie-select-list [data]="movieList!.favouriteList!" />
+        </mat-menu>
+      </li>
+      <button mat-icon-button class="example-icon favorite-icon" aria-label="Example icon-button with heart icon">
+        <mat-icon color="primary">favorite</mat-icon>
+      </button>
+      <button
+        mat-icon-button
+        class="example-icon"
+        aria-label="Example icon-button with share icon"
+      >
+        <mat-icon color="primary">bookmark</mat-icon>
+      </button>
+    </ul>
+  </div>
+</mat-toolbar> -->
+
 <header class="header">
-  <div class="header__container">
-    <a class="header__logo">Cinema</a>
+  <div class="header__body">
+    <button mat-icon-button (click)="toggleSidebar()" class="menu-icon">
+      <mat-icon>menu</mat-icon>
+    </button>
+
     <nav class="header__actions action">
       <div class="action__search">
-        <button type="button"><i class="bx bx-search-alt-2"></i></button>
+        <button type="submit"><i class="bx bx-search-alt-2"></i></button>
         <input type="text" class="search-input" placeholder="Пошук фільмів" />
       </div>
       <ul class="action__list">
         <li>
-          <a class="action__favourite">
+          <button
+            type="button"
+            class="action__favourite"
+            routerLink="/selected-movie"
+          >
             <i class="bx bxs-heart"></i>
             <span class="count">{{ movieList!.favouriteList!.length }}</span>
-          </a>
-          <app-movie-select-list
+          </button>
+          <app-movie-header-selected-list
             class="action__sub-list sub-list"
             [data]="movieList!.favouriteList!"
           />
         </li>
         <li>
-          <a class="action__watch-list">
+          <button
+            type="button"
+            class="action__watch-list"
+            routerLink="/selected-movie"
+          >
             <i class="bx bx-bookmark"></i>
             <span class="count">{{ movieList!.watchList!.length }}</span>
-          </a>
-          <app-movie-select-list
+          </button>
+          <app-movie-header-selected-list
             class="action__sub-list sub-list"
             [data]="movieList!.watchList!"
           />

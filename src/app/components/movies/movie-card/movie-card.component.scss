@@ -7,16 +7,16 @@
 
 mat-card {
   min-height: 100%;
-  display: flex;
-  flex-direction: column;
   position: relative;
-  gap: 0.9375rem;
   font-family: "Roboto", sans-serif;
   padding-bottom: 0.3125rem;
   box-shadow: 0 0 5px rgba(0, 0, 0, 0.3);
   border-bottom-right-radius: 0.3125rem;
   border-bottom-left-radius: 0.3125rem;
   background-color: #252627;
+  gap: 0.9375rem;
+  display: flex;
+  flex-direction: column;
 }
 .card-movie {
   // .card-movie__average
@@ -72,6 +72,12 @@ mat-card {
   &__title {
     cursor: pointer;
     font-size: 1.0625rem;
+    flex: 1 1 auto;
+    transition: all 0.3s ease 0s;
+    &:hover {
+      color: #6d6d72;
+      transition: all 0.3s ease 0s;
+    }
   }
 
   // .card-movie__info

@@ -1,0 +1,74 @@
+.sidenav {
+  padding-top: 0.625rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.625rem;
+  // gap: 50px;
+}
+.logo {
+  color: #f33f3f;
+  font-size: 1.875rem;
+  font-family: "Griffy", sans-serif;
+  letter-spacing: 0.09em;
+  text-align: center;
+  text-decoration: none;
+}
+mat-list-item .mdc-list-item__content span {
+  // color: #fff;
+}
+
+:host ::ng-deep {
+  .mdc-list-item__primary-text {
+    display: flex !important;
+    align-items: center !important;
+    gap: 0.9375rem !important;
+    font-weight: 500;
+  }
+  .mat-mdc-list-item:hover
+    .mdc-list-item__content
+    .mdc-list-item__primary-text {
+    color: #481f1f;
+    z-index: 2;
+    position: relative;
+  }
+  .list-item-active {
+    background-color: #fff;
+  }
+}
+
+.mat-mdc-list-item {
+  &:hover {
+    .mdc-list-item__content span {
+      color: #fff;
+    }
+  }
+  mat-icon {
+    color: red;
+    font-size: 30px;
+    width: 30px;
+    height: 30px;
+  }
+}
+mat-list-item {
+  z-index: 5;
+}
+mat-divider {
+  background-color: red;
+  margin-top: 0.9375rem;
+  margin-bottom: 0.9375rem;
+  height: 0.0625rem;
+}
+
+.mdc-list {
+  // margin-top: 20px;
+}
+.mdc-list-item:focus::before {
+  // background-color: #e10a0a;
+  color: #fff;
+  opacity: 0.2;
+}
+.mdc-list-item:hover::before {
+  background-color: #eaeaea;
+  opacity: 0.5;
+  color: #fff !important;
+}

@@ -1,0 +1,33 @@
+<mat-tab-group>
+  <mat-tab label="Улюблені">
+    <div class="tabs__body">
+      @if(favouriteSelectedMovie.length>0){
+      <app-movie-tabs-selected-list
+        [data]="favouriteSelectedMovie"
+      ></app-movie-tabs-selected-list>
+      }@else {
+      <div>Список пустий</div>
+      }
+    </div>
+  </mat-tab>
+
+  <mat-tab label="Дивитись пізніше">
+    <div class="tabs__body">
+      @if(watchListSelectedMovie.length>0){
+      <app-movie-tabs-selected-list
+        [data]="watchListSelectedMovie"
+      ></app-movie-tabs-selected-list>
+      }
+    </div>
+  </mat-tab>
+
+  <mat-tab label="Усі">
+    <div class="tabs__body">
+      @if(allSelectedMovie.length>0){
+      <app-movie-tabs-selected-list
+        [data]="allSelectedMovie"
+      ></app-movie-tabs-selected-list>
+      }
+    </div></mat-tab
+  >
+</mat-tab-group>
