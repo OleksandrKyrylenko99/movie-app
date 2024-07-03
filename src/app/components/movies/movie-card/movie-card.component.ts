@@ -60,16 +60,6 @@ export class MovieCardComponent {
 
     this.onAddMovie.emit({ movie, selectType });
   }
-  // deleteMovie(selectType: SelectMovieListType): any {
-  //   const movieValueList =
-  //     this.movieListService.movieList.controls[selectType].value;
-  //   const ind = movieValueList.findIndex((m) => m.id === this.data.id);
-  //   if (ind >= 0) {
-  //     console.log(ind);
-
-  //     movieValueList.splice(ind, 1);
-  //   }
-  // }
   createMovie(selectType: SelectMovieListType): Movie {
     const data: Movie = {
       backdrop_path: this.data.backdrop_path,

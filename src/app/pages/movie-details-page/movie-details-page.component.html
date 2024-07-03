@@ -1,4 +1,4 @@
-@if(movie ){
+@if(currentMovie(); as movie ){
 <section class="movie__content movie-content">
   <div class="movie-content__image">
     <img [src]="movie.backdrop_path" [alt]="movie.original_title" />

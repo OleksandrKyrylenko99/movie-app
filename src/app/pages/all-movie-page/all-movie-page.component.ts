@@ -17,5 +17,4 @@ export class AllMoviePageComponent implements OnInit {
   ngOnInit(): void {
     this.movieData = this.moviesService.getAllMovies();
   }
-  
 }

@@ -1,10 +1,8 @@
 <mat-tab-group>
   <mat-tab label="Улюблені">
     <div class="tabs__body">
-      @if(favouriteSelectedMovie.length>0){
-      <app-movie-tabs-selected-list
-        [data]="favouriteSelectedMovie"
-      ></app-movie-tabs-selected-list>
+      @if(movieList().favouriteList!.length>0){
+      <app-movie-tabs-selected-list [data]="movieList().favouriteList || []" />
       }@else {
       <div>Список пустий</div>
       }
@@ -13,10 +11,8 @@
 
   <mat-tab label="Дивитись пізніше">
     <div class="tabs__body">
-      @if(watchListSelectedMovie.length>0){
-      <app-movie-tabs-selected-list
-        [data]="watchListSelectedMovie"
-      ></app-movie-tabs-selected-list>
+      @if(movieList().watchList!.length>0){
+      <app-movie-tabs-selected-list [data]="movieList().watchList || []" />
       }
     </div>
   </mat-tab>
@@ -26,7 +22,8 @@
       @if(allSelectedMovie.length>0){
       <app-movie-tabs-selected-list
         [data]="allSelectedMovie"
-      ></app-movie-tabs-selected-list>
+        [removeAll]="true"
+      />
       }
     </div></mat-tab
   >

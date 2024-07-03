@@ -4,6 +4,8 @@ import { SelectedMovieService } from '../../service/selected-movie/selected-movi
 import { Movie } from '../../types/movie.type';
 import { MovieTabsSelectedListComponent } from '../../components/movie-selected-list/movie-tabs-selected-list/movie-tabs-selected-list.component';
 import { MatIcon } from '@angular/material/icon';
+import { toSignal } from '@angular/core/rxjs-interop';
+import { startWith, tap } from 'rxjs';
 
 @Component({
   selector: 'app-selected-movie-page',
@@ -12,39 +14,48 @@ import { MatIcon } from '@angular/material/icon';
   templateUrl: './selected-movie-page.component.html',
   styleUrl: './selected-movie-page.component.scss',
 })
-export class SelectedMoviePageComponent implements OnInit {
+export class SelectedMoviePageComponent{
   constructor(private selectedMovieService: SelectedMovieService) {}
-  favouriteSelectedMovie: Movie[] = [];
-  watchListSelectedMovie: Movie[] = [];
+
   allSelectedMovie: Movie[] = [];
   tabsLabel = ['Улюблені', 'Дивитись пізніше', 'Усі'];
-  tabsData = [
-    this.favouriteSelectedMovie,
-    this.watchListSelectedMovie,
-    this.allSelectedMovie,
-  ];
-  ngOnInit(): void {
-    const favouriteMovies =
-      this.selectedMovieService.movieList.controls.favouriteList.value;
-    this.favouriteSelectedMovie.push(...favouriteMovies);
 
-    const watchListMovie =
-      this.selectedMovieService.movieList.controls.watchList.value;
-    this.watchListSelectedMovie.push(...watchListMovie);
+  movieList = toSignal(
+    this.selectedMovieService.movieList.valueChanges.pipe(
+      startWith(this.selectedMovieService.movieList.value),
+      tap(
+        (movielist) =>
+          (this.allSelectedMovie = this.checkAndAddMovie(movielist))
+      )
+    ),
+    {
+      initialValue: {
+        favouriteList: [],
+        watchList: [],
+      },
+    }
+  );
 
-    this.allSelectedMovie.push(...this.checkAndAddMovie());
-  }
-  checkAndAddMovie(): Movie[] {
-    const allSelectedMovie = [
-      ...this.favouriteSelectedMovie,
-      ...this.watchListSelectedMovie,
-    ];
-    const uniqueMovies = allSelectedMovie.reduce((acc, movie) => {
-      if (!acc.some((m) => m.id === movie.id)) {
-        acc.push(movie);
-      }
-      return acc;
-    }, [] as Movie[]);
-    return uniqueMovies;
+  checkAndAddMovie(
+    movielist: Partial<{
+      favouriteList: Movie[];
+      watchList: Movie[];
+    }>
+  ): Movie[] | [] {
+    if (movielist.favouriteList && movielist.watchList) {
+      const allSelectedMovie = [
+        ...movielist.favouriteList,
+        ...movielist.watchList,
+      ];
+      return allSelectedMovie.reduce((acc, movie) => {
+        if (!acc.some((m) => m.id === movie.id)) {
+          acc.push(movie);
+        }
+        return acc;
+      }, [] as Movie[]);
+    }
+
+    return [];
   }
 }
+

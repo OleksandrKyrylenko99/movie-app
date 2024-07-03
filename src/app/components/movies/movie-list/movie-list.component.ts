@@ -22,16 +22,12 @@ export class MovieListComponent {
   @Input() title!: string;
   @Input() customClass: string = '';
   updateMovie(event: { movie: Movie; selectType: SelectMovieListType }) {
-    this.selectedMovie.movieList.controls[event.selectType].setValue(
+    this.selectedMovie.movieList.controls[event.selectType].patchValue(
       [
         ...this.selectedMovie.movieList.controls[event.selectType].value,
         event.movie,
       ],
       { emitEvent: true }
     );
-    this.cdr.detectChanges();
-
-    // this.selectedMovie.movieList.updateValueAndValidity({ emitEvent: true });
-    console.log(this.selectedMovie);
   }
 }

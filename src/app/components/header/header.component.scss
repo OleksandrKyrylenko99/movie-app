@@ -6,8 +6,8 @@
   top: 0;
   z-index: 99;
   font-family: "Roboto", sans-serif;
-  // .header__container
 
+  // .header__body
   &__body {
     display: flex;
     align-items: center;
@@ -18,7 +18,6 @@
   }
 
   // .header__actions
-
   &__actions {
     display: flex;
     align-items: center;
@@ -178,25 +177,6 @@
   align-items: center;
   justify-content: center;
 }
-.example-form-field {
-  max-width: 400px;
-  // height: 3.125rem !important;
-  display: flex;
-  align-items: center;
-  flex: 1 1 auto;
-  &
-    .mat-mdc-form-field-subscript-wrapper.mat-mdc-form-field-bottom-align::before {
-    display: none !important;
-    height: 0;
-  }
-}
-::ng-deep
-  .example-form-field.mat-mdc-form-field
-  .mat-mdc-form-field-subscript-wrapper.mat-mdc-form-field-bottom-align::before {
-  display: none !important;
-  height: 0;
-}
-
 .menu-icon {
   background-color: transparent;
   border: none;

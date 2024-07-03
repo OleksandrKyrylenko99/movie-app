@@ -3,9 +3,7 @@
 
   &__tabs {
     display: grid;
-    // grid-template-columns: repeat(auto-fit, minmax(12.5rem, 15.625rem));
     grid-template-columns: repeat(6, 1fr);
-    // grid-template-columns: repeat(auto-fit, minmax(100px, 300px));
     column-gap: 0.9375rem;
     row-gap: 1.875rem;
     margin-top: 1.875rem;

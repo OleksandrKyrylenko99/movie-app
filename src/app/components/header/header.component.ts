@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { Component, EventEmitter, Output } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { NgClass } from '@angular/common';
 import { MatToolbarModule } from '@angular/material/toolbar';
@@ -8,7 +8,7 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { SelectedMovieService } from '../../service/selected-movie/selected-movie.service';
 import { RouterLink } from '@angular/router';
 import { MovieHeaderSelectedListComponent } from '../movie-selected-list/movie-header-selected-list/movie-header-select-list.component';
-
+import { toSignal } from '@angular/core/rxjs-interop';
 @Component({
   selector: 'app-header',
   standalone: true,
@@ -26,8 +26,13 @@ import { MovieHeaderSelectedListComponent } from '../movie-selected-list/movie-h
   styleUrl: './header.component.scss',
 })
 export class HeaderComponent {
-  constructor(private selectMovieService: SelectedMovieService) {}
-  movieList = this.selectMovieService.movieList.value;
+  constructor(private selectedMovieService: SelectedMovieService) {}
+  movieList = toSignal(this.selectedMovieService.movieList.valueChanges, {
+    initialValue: {
+      favouriteList: [],
+      watchList: [],
+    },
+  });
   @Output() toggleSidebarForMe: EventEmitter<any> = new EventEmitter();
   toggleSidebar() {
     this.toggleSidebarForMe.emit();

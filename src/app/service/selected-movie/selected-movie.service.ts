@@ -1,6 +1,5 @@
 import { Injectable } from '@angular/core';
 import { FormBuilder } from '@angular/forms';
-import { MovieList } from '../../types/movie-object-list.type';
 import { Movie } from '../../types/movie.type';
 import { SelectMovieListType } from '../../types/select-movie.type';
 
@@ -14,13 +13,22 @@ export class SelectedMovieService {
     watchList: this.fb.control<Movie[]>([], { nonNullable: true }),
   });
 
-  remove(movie: Movie) {
-    // console.log(movie, 'movie');
+  remove(movie: Movie, removeAll?: boolean) {
+    if (removeAll) {
+      for (const key of Object.keys(this.movieList.controls) as Array<
+        keyof typeof this.movieList.controls
+      >) {
+        const updatedList = this.movieList.controls[key].value.filter(
+          (m: Movie) => m.id !== movie.id
+        );
+        this.movieList.controls[key].patchValue(updatedList);
+      }
+      return;
+    }
     this.movieList.controls[movie.selectType].patchValue(
       this.movieList.controls[movie.selectType].value.filter(
         (m) => m.id !== movie.id
       )
     );
-    console.log(this.movieList.controls[movie.selectType].value, 'service');
   }
 }

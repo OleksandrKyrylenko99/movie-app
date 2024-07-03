@@ -3,14 +3,12 @@
 
   &__content {
     display: flex;
-    // align-items: center;
     gap: 25px;
     justify-content: space-between;
   }
 }
 .movie-content {
   // .movie-content__image
-
   &__image {
     flex: 0 0 23%;
     position: relative;
@@ -87,9 +85,6 @@
     &.info {
       align-items: flex-start;
     }
-    div p {
-      // max-width: 600px;
-    }
   }
 }
 .info {
@@ -98,6 +93,7 @@
   flex-wrap: wrap;
   align-items: center;
   font-size: 1.125rem;
+
   // .info--gray-blue
   &--gray-blue {
     color: #8b939a;
