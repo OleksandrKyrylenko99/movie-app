@@ -28,12 +28,13 @@ import { RouterLink, RouterOutlet } from '@angular/router';
   styleUrl: './movie-card.component.scss',
 })
 export class MovieCardComponent {
-  constructor(private movieListService: SelectedMovieService) {}
   @Input() data!: MovieInfo;
   @Output() onAddMovie = new EventEmitter<{
     movie: Movie;
     selectType: SelectMovieListType;
   }>();
+  constructor(private movieListService: SelectedMovieService) {}
+
   isFavourite() {
     return Boolean(
       this.movieListService.movieList.controls.favouriteList.value.find(

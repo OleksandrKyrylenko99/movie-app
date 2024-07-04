@@ -14,8 +14,9 @@ import { RouterLink } from '@angular/router';
   styleUrl: './movie-header-selected-list.component.scss',
 })
 export class MovieHeaderSelectedListComponent {
-  constructor(private movieListService: SelectedMovieService) {}
   @Input() data!: Movie[];
+  constructor(private movieListService: SelectedMovieService) {}
+
   deleteMovie(movie: Movie) {
     this.movieListService.remove(movie);
   }

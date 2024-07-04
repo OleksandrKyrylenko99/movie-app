@@ -14,9 +14,9 @@ import { SelectedMovieService } from '../../../service/selected-movie/selected-m
   styleUrl: './movie-tabs-selected-list.component.scss',
 })
 export class MovieTabsSelectedListComponent {
-  constructor(private movieListService: SelectedMovieService) {}
   @Input() data!: Movie[];
   @Input() removeAll: boolean = false;
+  constructor(private movieListService: SelectedMovieService) {}
 
   deleteMovie(movie: Movie) {
     this.movieListService.remove(movie, this.removeAll);

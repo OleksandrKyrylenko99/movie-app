@@ -26,7 +26,6 @@ import { toSignal } from '@angular/core/rxjs-interop';
   styleUrl: './header.component.scss',
 })
 export class HeaderComponent {
-  constructor(private selectedMovieService: SelectedMovieService) {}
   movieList = toSignal(this.selectedMovieService.movieList.valueChanges, {
     initialValue: {
       favouriteList: [],
@@ -34,6 +33,8 @@ export class HeaderComponent {
     },
   });
   @Output() toggleSidebarForMe: EventEmitter<any> = new EventEmitter();
+  constructor(private selectedMovieService: SelectedMovieService) {}
+
   toggleSidebar() {
     this.toggleSidebarForMe.emit();
   }

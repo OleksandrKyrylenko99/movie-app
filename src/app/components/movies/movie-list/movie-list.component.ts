@@ -14,13 +14,14 @@ import { NgClass } from '@angular/common';
   styleUrl: './movie-list.component.scss',
 })
 export class MovieListComponent {
+  @Input() movies!: MovieInfo[];
+  @Input() title!: string;
+  @Input() customClass: string = '';
   constructor(
     private selectedMovie: SelectedMovieService,
     private cdr: ChangeDetectorRef
   ) {}
-  @Input() movies!: MovieInfo[];
-  @Input() title!: string;
-  @Input() customClass: string = '';
+
   updateMovie(event: { movie: Movie; selectType: SelectMovieListType }) {
     this.selectedMovie.movieList.controls[event.selectType].patchValue(
       [

@@ -11,9 +11,9 @@ import { MovieService } from '../../service/movie/movie.service';
   styleUrl: './movie-popular-page.component.scss',
 })
 export class MoviePopularPageComponent implements OnInit {
-  constructor(private moviesService: MovieService) {}
   movieData!: MovieInfo[];
   @Input() customClass: string = '';
+  constructor(private moviesService: MovieService) {}
   ngOnInit(): void {
     this.movieData = this.moviesService.getPopularMovies();
   }

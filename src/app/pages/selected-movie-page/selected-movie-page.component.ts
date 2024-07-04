@@ -14,11 +14,9 @@ import { startWith, tap } from 'rxjs';
   templateUrl: './selected-movie-page.component.html',
   styleUrl: './selected-movie-page.component.scss',
 })
-export class SelectedMoviePageComponent{
-  constructor(private selectedMovieService: SelectedMovieService) {}
-
+export class SelectedMoviePageComponent {
   allSelectedMovie: Movie[] = [];
-  tabsLabel = ['Улюблені', 'Дивитись пізніше', 'Усі'];
+  constructor(private selectedMovieService: SelectedMovieService) {}
 
   movieList = toSignal(
     this.selectedMovieService.movieList.valueChanges.pipe(
@@ -54,8 +52,6 @@ export class SelectedMoviePageComponent{
         return acc;
       }, [] as Movie[]);
     }
-
     return [];
   }
 }
-

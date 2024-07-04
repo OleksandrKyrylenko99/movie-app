@@ -12,8 +12,8 @@ import { MovieService } from '../../service/movie/movie.service';
   styleUrl: './all-movie-page.component.scss',
 })
 export class AllMoviePageComponent implements OnInit {
-  constructor(private moviesService: MovieService) {}
   movieData!: MovieInfo[];
+  constructor(private moviesService: MovieService) {}
   ngOnInit(): void {
     this.movieData = this.moviesService.getAllMovies();
   }

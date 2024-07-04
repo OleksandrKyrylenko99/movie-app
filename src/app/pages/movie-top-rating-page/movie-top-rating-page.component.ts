@@ -11,8 +11,8 @@ import { MovieService } from '../../service/movie/movie.service';
   styleUrl: './movie-top-rating-page.component.scss',
 })
 export class MovieTopRatingPageComponent implements OnInit {
-  constructor(private moviesService: MovieService) {}
   movieData!: MovieInfo[];
+  constructor(private moviesService: MovieService) {}
   ngOnInit(): void {
     this.movieData = this.moviesService.getMoviesWithTopRating();
   }
