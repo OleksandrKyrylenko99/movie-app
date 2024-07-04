@@ -1,5 +1,5 @@
 @if(data.length){ @for(movie of data;track movie){
-<li class="movie__item movie">
+<li class="movie__item movie" [routerLink]="['/movie-details/', movie.id]">
   <div class="movie__image">
     <img [src]="movie.backdrop_path" [alt]="movie.title" />
   </div>
@@ -15,6 +15,7 @@
       <i class="bx bx-time"></i>{{ movie.duration_movie | timeFormat }}
     </div>
   </div>
+  <mat-icon (click)="deleteMovie(movie)">delete_forever</mat-icon>
 </li>
 } } @else{
 <li>Список порожній</li>

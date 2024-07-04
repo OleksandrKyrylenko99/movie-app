@@ -1,0 +1,11 @@
+@if(title){
+<h2>{{ title }}</h2>
+}
+<div [ngClass]="customClass">
+  @if(movies.length){ @for(movie of movies; track movie){
+  <app-movie-card [data]="movie" (onAddMovie)="updateMovie($event)">
+  </app-movie-card>
+  } }@else {
+  <p>Список фільмів порожній :(</p>
+  }
+</div>

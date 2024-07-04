@@ -1,3 +1,5 @@
+import { SelectMovieListType } from './select-movie.type';
+
 export type Movie = {
   backdrop_path: string;
   id: number;
@@ -5,4 +7,5 @@ export type Movie = {
   release_year: string;
   vote_average: string;
   duration_movie: string;
+  selectType: SelectMovieListType;
 };

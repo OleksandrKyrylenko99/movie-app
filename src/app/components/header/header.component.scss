@@ -1,33 +1,23 @@
 .header {
   background-color: rgba(2, 2, 2, 0.5);
-  position: fixed;
+  position: sticky;
   width: 100%;
   left: 0;
   top: 0;
   z-index: 99;
   font-family: "Roboto", sans-serif;
 
-  // .header__container
-
-  &__container {
+  // .header__body
+  &__body {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    min-height: 4.375rem;
+    min-height: 3.75rem;
     gap: 30px;
-  }
-
-  // .header__logo
-
-  &__logo {
-    color: #ffc907;
-    font-size: 1.5625rem;
-    font-family: "Griffy", sans-serif;
-    letter-spacing: 0.09em;
+    padding: 0.3125rem 1.5625rem;
   }
 
   // .header__actions
-
   &__actions {
     display: flex;
     align-items: center;
@@ -102,11 +92,15 @@
   &__list {
     display: flex;
     align-items: center;
+    justify-content: center;
     gap: 1.25rem;
     li {
       display: flex;
       position: relative;
-      padding: 10px;
+      padding: 0.3125rem;
+      button {
+        padding: 0;
+      }
       &:hover .action__sub-list {
         opacity: 1;
         visibility: visible;
@@ -119,7 +113,7 @@
   &__sub-list {
     position: absolute;
     top: 100%;
-    left: -100%;
+    right: 0%;
     border-radius: 10px;
     background-color: rgba(85, 73, 85, 0.8);
     box-shadow: 0 0 5px rgba(0, 0, 0, 0.3);
@@ -127,7 +121,7 @@
     display: flex;
     flex-direction: column;
     color: #ffffff;
-    min-width: 200px;
+    min-width: 240px;
     max-height: 200px;
     overflow-y: auto;
     gap: 5px;
@@ -182,4 +176,10 @@
   display: flex;
   align-items: center;
   justify-content: center;
+}
+.menu-icon {
+  background-color: transparent;
+  border: none;
+  color: #fff;
+  cursor: pointer;
 }

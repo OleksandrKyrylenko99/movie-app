@@ -1,21 +1,24 @@
 $white: #fff;
 $black: #191a1b;
-$basic-black:#1d1e1f;
-$cyan:#00c5a8;
+$basic-black: #1d1e1f;
+$cyan: #00c5a8;
 $orange: #723600;
 $red: #ff0000;
 $dark-crimson: #da21304d;
-$red-hover:#da2130;
-$hover:#f3f3f4;
+$red-hover: #da2130;
+$hover: #f3f3f4;
 
-:root{
-    --text-color: #($basic-black);
-    --white: #($white);
-    --black: #($black);
-    --cyan: #($cyan);
-    --orange: #($orange);
-    --red: #($red);
-    --dark-crimson: #($$dark-crimson);
-    --hover-red-color: #($red-hover);
-    --hover-color: #($hover);
+:root {
+  --text-color: #($basic-black);
+  --white: #($white);
+  --black: #($black);
+  --cyan: #($cyan);
+  --orange: #($orange);
+  --red: #($red);
+  --dark-crimson: #($$dark-crimson);
+  --hover-red-color: #($red-hover);
+  --hover-color: #($hover);
+  --mdc-list-list-item-label-text-color: #($white);
+  --mdc-list-list-item-hover-state-layer-color: #($dark-crimson);
+  --mdc-list-list-item-focus-label-text-color: #($hover);
 }

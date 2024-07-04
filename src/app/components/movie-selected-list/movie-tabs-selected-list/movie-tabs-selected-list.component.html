@@ -1,0 +1,40 @@
+@if(data.length){
+<div class="movie__tabs tabs">
+  @for(movie of data; track movie){
+  <div class="tabs__item item">
+    <div class="item__image">
+      <img [src]="movie.backdrop_path" [alt]="movie.title" />
+      <div class="item__info">
+        <div class="item__details details">
+          <div class="details__item rating">
+            <i class="bx bx-star"></i>{{ movie.vote_average }}
+          </div>
+          <div class="details__item duration">
+            <i class="bx bx-time"></i> {{ movie.duration_movie | timeFormat }}
+          </div>
+          <div class="details__item years">
+            <i class="bx bxs-calendar"></i> {{ movie.release_year }}
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="item__actions actions">
+      <button
+        type="button"
+        class="actions__watch"
+        [routerLink]="['/movie-details/', movie.id]"
+      >
+        Дивитись
+      </button>
+      <button
+        type="button"
+        class="actions__delete"
+        (click)="deleteMovie(movie)"
+      >
+        <mat-icon>delete_forever</mat-icon>
+      </button>
+    </div>
+  </div>
+  }
+</div>
+}

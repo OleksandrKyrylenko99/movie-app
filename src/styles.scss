@@ -1,11 +1,29 @@
-
-body{
+body {
 }
-[class*="__container"]{
-    max-width: 68.75rem;
-    margin: 0 auto;
-    padding: .3125rem .9375rem;
-    box-sizing: border-box; 
+[class*="__container"] {
+  max-width: 68.75rem;
+  margin: 0 auto;
+  padding: 0.3125rem 0.9375rem;
+  box-sizing: border-box;
 }
-html, body { height: 100%; }
-body { margin: 0; font-family: "Helvetica Neue", sans-serif; }
+html,
+body {
+  height: 100%;
+}
+body {
+  margin: 0;
+  font-family: "Helvetica Neue", sans-serif;
+}
+button {
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
+}
+a {
+  font-style: none;
+  text-decoration: none;
+  color: inherit;
+}
+.mat-drawer-container {
+  color: rgb(255 255 255 / 87%);
+}

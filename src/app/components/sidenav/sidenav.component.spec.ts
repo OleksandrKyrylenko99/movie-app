@@ -1,17 +1,18 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { MovieSelectListComponent } from './movie-select-list.component';
+import { SidenavComponent } from './sidenav.component';
 
-describe('AddedMovieComponent', () => {
-  let component: MovieSelectListComponent;
-  let fixture: ComponentFixture<MovieSelectListComponent>;
+describe('SidenavComponent', () => {
+  let component: SidenavComponent;
+  let fixture: ComponentFixture<SidenavComponent>;
+
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [MovieSelectListComponent]
+      imports: [SidenavComponent]
     })
     .compileComponents();
     
-    fixture = TestBed.createComponent(MovieSelectListComponent);
+    fixture = TestBed.createComponent(SidenavComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });
