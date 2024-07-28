@@ -1,0 +1,63 @@
+<div
+  class="login-box"
+  [ngStyle]="{ 'background-image': 'url(' + bgImage + ')' }"
+>
+  <div class="login__header">
+    <a mat-list-item routerLink="/"><mat-icon>home</mat-icon></a>
+  </div>
+  <div class="login__body">
+    <div class="login__content">
+      <h2 mat-dialog-title>Авторизація</h2>
+      <form class="form__auth" [formGroup]="form" (ngSubmit)="submit()">
+        <div class="auth__content">
+          <mat-form-field class="example-full-width">
+            <mat-label>Ім'я</mat-label>
+            <input
+              type="text"
+              [formControl]="form.controls.userName"
+              matInput
+              placeholder="Ім'я користувача"
+            />
+          </mat-form-field>
+          <mat-form-field>
+            <mat-label>Пароль</mat-label>
+            <input
+              matInput
+              [type]="hide ? 'password' : 'text'"
+              [formControl]="form.controls.password"
+            />
+            <button
+              mat-icon-button
+              matSuffix
+              (click)="hide = !hide; toggle($event)"
+              [attr.aria-label]="'Hide password'"
+              [attr.aria-pressed]="hide"
+            >
+              <mat-icon>{{ hide ? "visibility_off" : "visibility" }}</mat-icon>
+            </button>
+          </mat-form-field>
+        </div>
+        <button
+          type="submit"
+          class="button__auth"
+          [disabled]="!form.valid || submitted"
+        >
+          @if(!submitted){ Авторизуватись }@else{
+          <mat-spinner></mat-spinner>
+          }
+        </button>
+      </form>
+      <div class="login__info info">
+        <p>
+          Для того, щоб використовувати можливості цитування, рейтингів, а також
+          особисті рекомендації TMDbas, вам потрібно увійти до свого особистого
+          облікового запису. Якщо у вас немає облікового запису, реєстрація
+          запису безкоштовна і проста.
+        </p>
+        <div class="info__actions">
+          <a (click)="registration()">Реєстрація</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

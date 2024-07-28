@@ -3,29 +3,43 @@
   display: flex;
   flex-direction: column;
   gap: 0.625rem;
+  flex: 1 1 auto;
 }
 .logo {
-  color: #f33f3f;
-  font-size: 1.875rem;
-  font-family: "Griffy", sans-serif;
-  letter-spacing: 0.09em;
-  text-align: center;
+  color: #ffffff;
+  font-size: 1.5625rem;
+  display: flex;
+  align-items: center;
+  gap: 0.625rem;
+  padding-left: 0.625rem;
+  justify-self: start;
   text-decoration: none;
 }
 
 :host ::ng-deep {
+  .list-item-active::before {
+    background-color: rgb(255, 255, 255);
+    opacity: 0.5;
+  }
+  .mdc-list-item:focus::before {
+    color: #fff;
+    opacity: 0.2;
+    background-color: transparent;
+  }
   .mdc-list-item__primary-text {
     display: flex !important;
     align-items: center !important;
-    gap: 0.9375rem !important;
+    gap: 0.3125rem !important;
     font-weight: 500;
+    transition: all 0.4s ease 0s;
   }
   .mat-mdc-list-item:hover
     .mdc-list-item__content
     .mdc-list-item__primary-text {
-    color: #fefefe;
+    color: #62eeeb;
     z-index: 2;
     position: relative;
+    transition: all 0.4s ease 0s;
   }
   .list-item-active {
     background-color: #fff;
@@ -40,27 +54,52 @@
   }
   mat-icon {
     color: red;
-    font-size: 30px;
-    width: 30px;
-    height: 30px;
+    font-size: 1.25rem;
+    width: 1.25rem;
+    height: 1.25rem;
   }
-}
-mat-list-item {
-  z-index: 5;
 }
 mat-divider {
   background-color: red;
-  margin-top: 0.9375rem;
-  margin-bottom: 0.9375rem;
-  height: 0.0625rem;
-}
-
-.mdc-list-item:focus::before {
-  color: #fff;
-  opacity: 0.2;
+  margin-top: 0.625rem;
+  margin-bottom: 0.625rem;
+  height: 0.0313rem;
 }
 .mdc-list-item:hover::before {
-  background-color: #e36060;
+  background-color: rgba(21, 57, 57);
   opacity: 0.5;
-  color: #fff !important;
+}
+
+mat-nav-list {
+  flex: 1 1 auto;
+}
+.logout {
+  button {
+    display: inline-flex;
+    // max-width: 120px;
+    align-items: center;
+    gap: 0.3125rem;
+    font-size: 1.125rem;
+    color: #ffffff;
+    padding: 0.3125rem 0.625rem;
+    transition: all 0.3s ease 0s;
+    border-radius: 0.625rem;
+    flex-wrap: wrap;
+    mat-icon {
+      color: red;
+      font-size: 1.5625rem;
+      width: 1.5625rem;
+      height: 1.5625rem;
+    }
+    &:hover {
+      transition: all 0.3s ease 0s;
+      color: #62eeeb;
+    }
+  }
+}
+.bx {
+  color: red;
+  font-size: 1.25rem;
+  width: 1.25rem;
+  height: 1.25rem;
 }

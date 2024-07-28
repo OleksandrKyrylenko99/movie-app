@@ -1,0 +1,51 @@
+<section class="selected-movie__section selected-movie">
+  <h2 class="selected-movie__title">Favorite Movie List</h2>
+  @if(movieListService.showLoader()){
+  <app-loader></app-loader>
+  } @if(movieData.length > 0){
+  <div class="selected-movie__items">
+    @for(movie of movieData; track movie){
+    <div class="selected-movie__item item">
+      <div class="item__image">
+        <img [src]="path + movie.poster_path" [alt]="movie.title" />
+      </div>
+      <div class="layer"></div>
+      <div class="item__info">
+        <div class="item__title">
+          {{ movie.title }}
+        </div>
+        <div class="item__details details">
+          <div class="details__item rating">
+            <i class="bx bx-star"></i>{{ movie.vote_average | roundRating }}
+          </div>
+          <div class="details__item years">
+            {{ movie.release_date | extractYear }}
+          </div>
+        </div>
+        <div class="item__actions action">
+          <button
+            type="button"
+            class="action__button action__button--play"
+            [routerLink]="['/movie-details/', movie.id]"
+          >
+            <span>Watch</span>
+            <mat-icon>play_arrow</mat-icon>
+          </button>
+          <button
+            type="button"
+            class="action__button action__button--remove"
+            (click)="removeMovie(movie.id)"
+          >
+            @if(hasDelete){
+            <mat-icon>delete</mat-icon>
+            }@else {
+            <mat-spinner></mat-spinner>
+            }
+          </button>
+        </div>
+      </div>
+    </div>
+    }
+  </div>
+  }@else { }
+</section>
