@@ -10,10 +10,10 @@
 .movie-content {
   // .movie-content__image
   &__image {
-    flex: 0 0 23%;
+    flex: 0 0 30%;
     position: relative;
     align-self: flex-start;
-    padding-bottom: 35%;
+    padding-bottom: 29%;
 
     img {
       position: absolute;
@@ -21,7 +21,7 @@
       height: 100%;
       left: 0;
       top: 0;
-      object-fit: contain;
+      object-fit: cover;
     }
   }
   // .movie-content__row
@@ -101,7 +101,7 @@
     max-width: 6.25rem;
   }
   &--dark-green {
-    color: #1c6b5e;
+    color: #fff;
   }
 
   // .info__genres

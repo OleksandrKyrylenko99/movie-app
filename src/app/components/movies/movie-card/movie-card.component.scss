@@ -40,12 +40,11 @@ mat-card {
 
   &__image {
     display: block;
-    padding-bottom: 150%;
+    padding-bottom: 140%;
     position: relative;
     align-self: stretch;
     overflow: hidden;
     cursor: pointer;
-    flex: 1 1 auto;
     &::after {
       content: "";
       position: absolute;
@@ -74,6 +73,9 @@ mat-card {
     font-size: 1.0625rem;
     flex: 1 1 auto;
     transition: all 0.3s ease 0s;
+    font-size: 0.9375rem;
+    font-weight: 500;
+    letter-spacing: 0.05em;
     &:hover {
       color: #6d6d72;
       transition: all 0.3s ease 0s;
@@ -108,7 +110,6 @@ mat-card-content {
   align-items: center;
   justify-content: start;
   flex-wrap: wrap;
-  gap: 0.625rem;
   padding: 0px 0.3125rem;
 }
 .mat-mdc-card-content:last-child {

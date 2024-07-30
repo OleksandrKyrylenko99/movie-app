@@ -1,13 +1,1 @@
-<section class="wrapper">
-  <mat-drawer-container>
-    <mat-drawer mode="side" [opened]="openSidebar">
-      <app-sidenav></app-sidenav>
-    </mat-drawer>
-    <mat-drawer-content>
-      <app-header (toggleSidebarForMe)="toggleSidebar()"></app-header>
-      <div class="main-content">
-        <router-outlet></router-outlet>
-      </div>
-    </mat-drawer-content>
-  </mat-drawer-container>
-</section>
+<router-outlet></router-outlet>

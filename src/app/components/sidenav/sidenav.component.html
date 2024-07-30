@@ -1,23 +1,64 @@
 <div class="sidenav">
-  <a class="logo" [routerLink]="'/'">Cinema</a>
+  <a class="logo" routerLink="/"><i class="bx bx-camera-movie"></i>Movies</a>
   <mat-divider></mat-divider>
   <mat-nav-list>
-    <a mat-list-item routerLink="/movie" routerLinkActive="list-item-active">
-      <mat-icon>home</mat-icon>Головна
-    </a>
-    <a
-      mat-list-item
-      routerLink="/movie-popular"
-      routerLinkActive="list-item-active"
-    >
-      <mat-icon>trending_up</mat-icon>Популярні
-    </a>
-    <a
-      mat-list-item
-      routerLink="/movie-top-rating"
-      routerLinkActive="list-item-active"
-    >
-      <mat-icon>grade</mat-icon>Топ Рейтинг
-    </a>
+    <div class="menu__nav">
+      <a
+        mat-list-item
+        routerLink="/home"
+        class="nav__item"
+        routerLinkActive="list-item-active"
+      >
+        <mat-icon>home</mat-icon>Home
+      </a>
+      <a
+        mat-list-item
+        routerLink="/movie"
+        class="nav__item"
+        routerLinkActive="list-item-active"
+      >
+        <mat-icon>play_arrow</mat-icon>Now Playing
+      </a>
+      <a
+        mat-list-item
+        routerLink="/movie-popular"
+        routerLinkActive="list-item-active"
+      >
+        <mat-icon>trending_up</mat-icon>Popular
+      </a>
+      <a
+        mat-list-item
+        routerLink="/movie-top-rating"
+        routerLinkActive="list-item-active"
+      >
+        <mat-icon>grade</mat-icon>Top Rating
+      </a>
+    </div>
+    <mat-divider></mat-divider>
+    <div class="selected-movie__nav">
+      <a
+        mat-list-item
+        routerLink="/favourite-movie"
+        routerLinkActive="list-item-active"
+      >
+        <i class="bx bxs-heart"></i>Favourite
+      </a>
+      <a
+        mat-list-item
+        routerLink="/watch-list-movie"
+        routerLinkActive="list-item-active"
+      >
+        <i class="bx bxs-bookmark-star"></i>WatchList
+      </a>
+    </div>
+    <mat-divider></mat-divider>
   </mat-nav-list>
+  @if(authService.isAuthenticationSignal()){
+  <mat-divider></mat-divider>
+  <div class="logout">
+    <button type="button" (click)="logout()">
+      <mat-icon>logout</mat-icon>Logout
+    </button>
+  </div>
+  }
 </div>

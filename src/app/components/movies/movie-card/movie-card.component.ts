@@ -10,6 +10,10 @@ import { MatIconModule } from '@angular/material/icon';
 import { SelectedMovieService } from '../../../service/selected-movie/selected-movie.service';
 import { SelectMovieListType } from '../../../types/select-movie.type';
 import { RouterLink, RouterOutlet } from '@angular/router';
+import { PATH_IMAGE } from '../../../constants/path-image';
+import { RoundRatingPipe } from '../../../pipes/round-rating/round-rating.pipe';
+import { ClearObservableDirective } from '../../../shared/clear-observable/clear-observable.directive';
+import { takeUntil } from 'rxjs';
 
 @Component({
   selector: 'app-movie-card',
@@ -23,54 +27,22 @@ import { RouterLink, RouterOutlet } from '@angular/router';
     MatIconModule,
     RouterLink,
     RouterOutlet,
+    RoundRatingPipe,
   ],
   templateUrl: './movie-card.component.html',
   styleUrl: './movie-card.component.scss',
 })
-export class MovieCardComponent {
+export class MovieCardComponent extends ClearObservableDirective {
   @Input() data!: MovieInfo;
-  @Output() onAddMovie = new EventEmitter<{
-    movie: Movie;
-    selectType: SelectMovieListType;
-  }>();
-  constructor(private movieListService: SelectedMovieService) {}
+  path = PATH_IMAGE;
+  constructor(private movieListService: SelectedMovieService) {
+    super();
+  }
 
-  isFavourite() {
-    return Boolean(
-      this.movieListService.movieList.controls.favouriteList.value.find(
-        (m) => m.id === this.data.id
-      )
-    );
-  }
-  isWatchList() {
-    return Boolean(
-      this.movieListService.movieList.controls.watchList.value.find(
-        (m) => m.id === this.data.id
-      )
-    );
-  }
-  addMovie(selectType: SelectMovieListType) {
-    const movieValueList =
-      this.movieListService.movieList.controls[selectType].value;
-    const ind = movieValueList.findIndex((m) => m.id === this.data.id);
-    if (ind >= 0) {
-      movieValueList.splice(ind, 1);
-      return;
-    }
-    const movie = this.createMovie(selectType);
-
-    this.onAddMovie.emit({ movie, selectType });
-  }
-  createMovie(selectType: SelectMovieListType): Movie {
-    const data: Movie = {
-      backdrop_path: this.data.backdrop_path,
-      id: this.data.id,
-      title: this.data.title,
-      release_year: this.data.release_year,
-      vote_average: this.data.vote_average,
-      duration_movie: this.data.duration_movie,
-      selectType: selectType,
-    };
-    return data;
+  addMovie(id: number, selectType: string) {
+    this.movieListService
+      .addMovie(id, selectType)
+      .pipe(takeUntil(this.destroy$))
+      .subscribe();
   }
 }

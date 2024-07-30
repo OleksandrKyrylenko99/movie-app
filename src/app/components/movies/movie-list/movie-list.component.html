@@ -1,11 +1,10 @@
 @if(title){
 <h2>{{ title }}</h2>
+} @if(moviesService.showLoaderSignal()){
+<app-loader></app-loader>
 }
 <div [ngClass]="customClass">
-  @if(movies.length){ @for(movie of movies; track movie){
-  <app-movie-card [data]="movie" (onAddMovie)="updateMovie($event)">
-  </app-movie-card>
-  } }@else {
-  <p>Список фільмів порожній :(</p>
-  }
+  @if(movies){ @for(movie of movies; track movie.id){
+  <app-movie-card [data]="movie"> </app-movie-card>
+  } }
 </div>

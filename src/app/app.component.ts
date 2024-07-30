@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 import { AllMoviePageComponent } from './pages/all-movie-page/all-movie-page.component';
 import { HeaderComponent } from './components/header/header.component';
@@ -6,6 +6,8 @@ import { MovieList } from './types/movie-object-list.type';
 import { MatSelectModule } from '@angular/material/select';
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { SidenavComponent } from './components/sidenav/sidenav.component';
+import { MovieService } from './service/movie/movie.service';
+
 @Component({
   selector: 'app-root',
   standalone: true,
@@ -21,16 +23,5 @@ import { SidenavComponent } from './components/sidenav/sidenav.component';
   styleUrl: './app.component.scss',
 })
 export class AppComponent {
-  openSidebar = true;
-  title = '';
-  movieList: MovieList = {
-    favouriteList: [],
-    watchList: [],
-  };
-  changeMovieList(obj: MovieList) {
-    this.movieList = obj;
-  }
-  toggleSidebar() {
-    this.openSidebar = !this.openSidebar;
-  }
+  constructor() {}
 }

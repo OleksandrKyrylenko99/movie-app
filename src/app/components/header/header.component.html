@@ -3,40 +3,29 @@
     <button mat-icon-button (click)="toggleSidebar()" class="menu-icon">
       <mat-icon>menu</mat-icon>
     </button>
-
     <nav class="header__actions action">
+      @if(authService.isAuthenticationSignal()){
       <div class="action__search">
         <button type="submit"><i class="bx bx-search-alt-2"></i></button>
         <input type="text" class="search-input" placeholder="Пошук фільмів" />
       </div>
+      }
       <ul class="action__list">
-        <li>
+        <li class="action__item">
+          @if(!authService.isAuthenticationSignal()){
           <button
             type="button"
-            class="action__favourite"
-            routerLink="/selected-movie"
+            class="action__auth"
+            mat-raised-button
+            (click)="openAuthorizationForm()"
           >
-            <i class="bx bxs-heart"></i>
-            <span class="count">{{ movieList().favouriteList?.length }}</span>
+            Гість
           </button>
-          <app-movie-header-selected-list
-            class="action__sub-list sub-list"
-            [data]="movieList().favouriteList || []"
-          />
-        </li>
-        <li>
-          <button
-            type="button"
-            class="action__watch-list"
-            routerLink="/selected-movie"
-          >
-            <i class="bx bx-bookmark"></i>
-            <span class="count">{{ movieList().watchList?.length }}</span>
+          }@else{
+          <button type="button" class="user__logo">
+            <small>{{ userName | firstLetterUserName }}</small>
           </button>
-          <app-movie-header-selected-list
-            class="action__sub-list sub-list"
-            [data]="movieList().watchList || []"
-          />
+          }
         </li>
       </ul>
     </nav>

@@ -1,38 +1,36 @@
 @if(currentMovie(); as movie ){
 <section class="movie__content movie-content">
   <div class="movie-content__image">
-    <img [src]="movie.backdrop_path" [alt]="movie.original_title" />
+    <img [src]="path + movie.backdrop_path" [alt]="movie.original_title" />
   </div>
   <div class="movie-content__row">
     <h2 class="movie-content__title">{{ movie.title }}</h2>
     <div class="movie-content__info movie-info">
-      <div class="movie-info__years info">
-        <div class="info--gray-blue">Рік</div>
-        <div class="info--dark-green">{{ movie.release_year }}</div>
-      </div>
       <div class="movie-info__rating info">
         <div class="info--gray-blue">Рейтинг</div>
         <div class="info--dark-green">
           <span class="rating-name">IMDb</span
-          ><span>{{ movie.vote_average }}</span>
+          ><span>{{ movie.vote_average | roundRating }}</span>
         </div>
       </div>
       <div class="movie-info__country info">
         <div class="info--gray-blue">Країна</div>
-        <div class="info--dark-green">{{ movie.original_language }}</div>
+        <div class="info--dark-green">
+          {{ movie.original_language | titlecase }}
+        </div>
       </div>
       <div class="movie-info__genre info">
         <div class="info--gray-blue">Жанр</div>
         <div class="info__genres">
           @for(genre of movie.genres; track genre ){
-          <div class="info--dark-green">{{ genre }}</div>
+          <div class="info--dark-green">{{ genre.name }}</div>
           }
         </div>
       </div>
       <div class="movie-info__time info">
-        <div class="info--gray-blue">Час</div>
+        <div class="info--gray-blue">Рік виходу</div>
         <div class="info--dark-green">
-          {{ movie.duration_movie | timeFormat }}
+          {{ movie.release_date | extractYear }}
         </div>
       </div>
       <div class="movie-info__description info">
@@ -45,4 +43,6 @@
     </div>
   </div>
 </section>
+} @else{
+<app-loader></app-loader>
 }

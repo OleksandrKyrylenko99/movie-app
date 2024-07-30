@@ -9,11 +9,9 @@ export type MovieInfo = {
   overview: string;
   popularity: number;
   poster_path: string;
-  full_release_date: string;
-  release_year: string;
+  release_date: string;
   title: string;
   video: boolean;
-  vote_average: string;
+  vote_average: number;
   vote_count: number;
-  duration_movie: string;
 };
