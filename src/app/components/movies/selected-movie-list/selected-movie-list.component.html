@@ -1,6 +1,6 @@
 <section class="selected-movie__section selected-movie">
   <h2 class="selected-movie__title">Favorite Movie List</h2>
-  @if(movieListService.showLoader()){
+  @if(movieListService.showLoaderSignal()){
   <app-loader></app-loader>
   } @if(movieData.length > 0){
   <div class="selected-movie__items">

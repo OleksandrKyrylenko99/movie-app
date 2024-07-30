@@ -9,7 +9,7 @@ export const authGuard = (options: {
   const { isAuthentication, otherwise } = options;
   return (): boolean | UrlTree => {
     const router = inject(Router);
-    const hasUserDate = !!localStorage.getItem('userDate');
-    return hasUserDate === isAuthentication ? true : router.parseUrl(otherwise);
+    const hasUserData = !!localStorage.getItem('userData');
+    return hasUserData === isAuthentication ? true : router.parseUrl(otherwise);
   };
 };

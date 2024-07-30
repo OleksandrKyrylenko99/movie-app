@@ -9,11 +9,11 @@ import { MovieDetails } from '../../interface/movie-details';
   providedIn: 'root',
 })
 export class MovieService {
-  showLoader = signal(false);
-  accountId: number | null = null;
+  showLoaderSignal = signal(false);
+  // accountId: number | null = null;
   constructor(private http: HttpClient) {}
   getMovies(categoryType: string): Observable<MovieApiModel> {
-    this.showLoader.set(true);
+    this.showLoaderSignal.set(true);
     return this.http
       .get<MovieApiModel>(
         `${environment.dbUrl}/movie/${categoryType}${environment.apiKey}`
@@ -30,7 +30,7 @@ export class MovieService {
           throw new Error(err.message);
         }),
         finalize(() => {
-          this.showLoader.set(false);
+          this.showLoaderSignal.set(false);
         })
       );
   }

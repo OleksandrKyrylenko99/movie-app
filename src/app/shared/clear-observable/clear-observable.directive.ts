@@ -6,9 +6,7 @@ export class ClearObservableDirective implements OnDestroy {
   destroy$ = new Subject<boolean>();
   constructor() {}
   ngOnDestroy(): void {
-    if (this.destroy$) {
-      this.destroy$.next(true);
-      this.destroy$.complete();
-    }
+    this.destroy$.next(true);
+    this.destroy$.complete();
   }
 }

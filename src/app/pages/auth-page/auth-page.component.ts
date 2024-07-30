@@ -1,4 +1,4 @@
-import { Component, inject, OnInit, signal } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { MatIcon } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
 import { AuthService } from '../../service/auth/auth.service';
@@ -13,13 +13,11 @@ import {
   Validators,
 } from '@angular/forms';
 import { UserData } from '../../types/data-user';
-// import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { NgStyle } from '@angular/common';
 import { LOGIN_PAGE_BG } from '../../constants/login-path-image';
 import { Router, RouterLink } from '@angular/router';
 
 @Component({
-  selector: 'app-auth',
   standalone: true,
   imports: [
     MatInputModule,
@@ -30,10 +28,10 @@ import { Router, RouterLink } from '@angular/router';
     NgStyle,
     RouterLink,
   ],
-  templateUrl: './auth.component.html',
-  styleUrl: './auth.component.scss',
+  templateUrl: './auth-page.component.html',
+  styleUrl: './auth-page.component.scss',
 })
-export class AuthComponent implements OnInit {
+export class AuthPageComponent implements OnInit {
   hide = true;
   submitted = false;
   userName = '';
@@ -57,10 +55,10 @@ export class AuthComponent implements OnInit {
     event.preventDefault();
   }
   submit() {
-    if (this.form.valid) {
+    if (this.form.value.userName && this.form.value.password) {
       const data: UserData = {
-        name: this.form.value.userName as string,
-        password: this.form.value.password as string,
+        name: this.form.value.userName,
+        password: this.form.value.password,
       };
       this.authenticate(data);
     }

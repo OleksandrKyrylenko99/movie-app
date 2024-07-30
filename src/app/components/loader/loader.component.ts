@@ -4,11 +4,7 @@ import { Component } from '@angular/core';
   selector: 'app-loader',
   standalone: true,
   imports: [],
-  template: `<div class="lds-facebook">
-    <div></div>
-    <div></div>
-    <div></div>
-  </div>`,
+  templateUrl: './loader.component.html',
   styleUrl: './loader.component.scss',
 })
 export class LoaderComponent {}

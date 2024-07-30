@@ -4,7 +4,7 @@
       <mat-icon>menu</mat-icon>
     </button>
     <nav class="header__actions action">
-      @if(authService.isAuthentication()){
+      @if(authService.isAuthenticationSignal()){
       <div class="action__search">
         <button type="submit"><i class="bx bx-search-alt-2"></i></button>
         <input type="text" class="search-input" placeholder="Пошук фільмів" />
@@ -12,7 +12,7 @@
       }
       <ul class="action__list">
         <li class="action__item">
-          @if(!authService.isAuthentication()){
+          @if(!authService.isAuthenticationSignal()){
           <button
             type="button"
             class="action__auth"

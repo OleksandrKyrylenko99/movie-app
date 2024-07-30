@@ -9,7 +9,7 @@ import { MovieInfo } from '../../types/movie-info.type';
   providedIn: 'root',
 })
 export class SelectedMovieService {
-  showLoader = signal(false);
+  showLoaderSignal = signal(false);
   constructor(private _http: HttpClient, private authService: AuthService) {}
   accountId = this.authService.user
     .pipe(take(1))
@@ -32,7 +32,7 @@ export class SelectedMovieService {
     );
   }
   getMovieList(name: string): Observable<any> {
-    this.showLoader.set(true);
+    this.showLoaderSignal.set(true);
     return this._http
       .get<{ results: MovieInfo[] }>(
         `${environment.dbAccountUrl}/${this.accountId}/${name}/movies`
@@ -43,7 +43,7 @@ export class SelectedMovieService {
           throw new Error(err.message);
         }),
         finalize(() => {
-          this.showLoader.set(false);
+          this.showLoaderSignal.set(false);
         })
       );
   }

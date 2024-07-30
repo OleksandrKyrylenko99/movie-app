@@ -9,15 +9,15 @@ import {
   tap,
 } from 'rxjs';
 import { UserData } from '../../types/data-user';
-import { User } from '../user/user.modal';
 import { Account } from '../../interface/account-model';
 import { environment } from '../../../environments/environment';
+import { User } from '../../types/user';
 
 @Injectable({
   providedIn: 'root',
 })
 export class AuthService {
-  isAuthentication = signal(false);
+  isAuthenticationSignal = signal(false);
   user = new BehaviorSubject<User | null>(null);
   constructor(private http: HttpClient) {}
 
@@ -46,10 +46,7 @@ export class AuthService {
         `${environment.dbUrl}/authentication/token/validate_with_login${environment.apiKey}`,
         body
       )
-      .pipe(
-        map(() => {}),
-        catchError((err) => this.handleError(err))
-      );
+      .pipe(catchError((err) => this.handleError(err)));
   }
 
   private createSession(requestToken: string): Observable<any> {
@@ -74,35 +71,40 @@ export class AuthService {
       switchMap((requestToken) =>
         this.validateRequestToken(requestToken, data).pipe(
           switchMap(() => this.createSession(requestToken)),
-          switchMap((sessionId) => this.getAccount(sessionId))
+          switchMap((sessionToken) => this.getAccount(sessionToken))
         )
       )
     );
   }
-  private createUser(account: Account, sessionId: string) {
-    const user = new User(account.id, sessionId, account.username);
+  private createUser(account: Account, sessionToken: string) {
+    this.setUserData(account, sessionToken);
+    const user = this.getUserData();
     this.user.next(user);
-    localStorage.setItem('userDate', JSON.stringify(user));
+    this.isAuthenticationSignal.set(true);
   }
 
   public autoAuthenticate() {
-    const userData = localStorage.getItem('userDate');
+    const userData = localStorage.getItem('userData');
     if (!userData) return;
-    const user: {
-      name: string;
-      _accountId: number;
-      _sessionToken: string;
-    } = JSON.parse(userData);
-    const loadedUser = new User(user._accountId, user._sessionToken, user.name);
-    if (loadedUser.token) {
-      this.user.next(loadedUser);
-    }
+    const user: User = JSON.parse(userData);
+    this.user.next(user);
+    this.isAuthenticationSignal.set(true);
   }
-
+  private setUserData(userData: Account, sessionToken: string) {
+    const user = {
+      accountId: userData.id,
+      sessionToken,
+      name: userData.username,
+    };
+    localStorage.setItem('userData', JSON.stringify(user));
+  }
+  public getUserData() {
+    return JSON.parse(JSON.stringify(localStorage.getItem('userData')));
+  }
   public logOut() {
     this.user.next(null!);
-    localStorage.removeItem('userDate');
-    this.isAuthentication.set(false);
+    localStorage.removeItem('userData');
+    this.isAuthenticationSignal.set(false);
   }
 
   private handleError(errorRes: HttpErrorResponse): any {

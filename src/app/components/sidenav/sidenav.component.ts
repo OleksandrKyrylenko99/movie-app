@@ -1,11 +1,10 @@
-import { Component, OnDestroy, OnInit, signal } from '@angular/core';
+import { Component, OnDestroy, signal } from '@angular/core';
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatIconModule } from '@angular/material/icon';
 import { Router, RouterLink, RouterOutlet } from '@angular/router';
 import { MatDividerModule } from '@angular/material/divider';
 import { MatListModule } from '@angular/material/list';
 import { AuthService } from '../../service/auth/auth.service';
-import { take } from 'rxjs';
 import { ClearObservableDirective } from '../../shared/clear-observable/clear-observable.directive';
 import { MatButtonModule } from '@angular/material/button';
 import { MatBadgeModule } from '@angular/material/badge';
@@ -33,16 +32,10 @@ import { FavouriteMoviePageComponent } from '../../pages/favourite-movie-page/fa
 })
 export class SidenavComponent
   extends ClearObservableDirective
-  implements OnDestroy, OnInit
+  implements OnDestroy
 {
-  auth = signal(false);
   constructor(public authService: AuthService, private router: Router) {
     super();
-  }
-  ngOnInit(): void {
-    this.authService.user.pipe(take(1)).subscribe((user) => {
-      this.authService.isAuthentication.set(!!user);
-    });
   }
   logout() {
     this.authService.logOut();

@@ -43,15 +43,14 @@ export class HeaderComponent
   implements OnDestroy, OnInit
 {
   userName = '';
+  isAuthentication = this.authService.isAuthenticationSignal();
   @Output() toggleSidebarForMe: EventEmitter<any> = new EventEmitter();
   constructor(public authService: AuthService, private route: Router) {
     super();
   }
   ngOnInit(): void {
     this.authService.user.pipe(take(1)).subscribe((user) => {
-      if (user) {
-        this.userName = user.name;
-      }
+      if (user) this.userName = user.name;
     });
   }
 
