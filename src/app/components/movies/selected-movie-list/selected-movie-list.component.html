@@ -1,6 +1,6 @@
 <section class="selected-movie__section selected-movie">
-  <h2 class="selected-movie__title">Favorite Movie List</h2>
-  @if(movieListService.showLoaderSignal()){
+  <h2 class="selected-movie__title">{{ title }}</h2>
+  @if(movieService.isShowLoaderSignal()){
   <app-loader></app-loader>
   } @if(movieData.length > 0){
   <div class="selected-movie__items">
@@ -36,7 +36,7 @@
             class="action__button action__button--remove"
             (click)="removeMovie(movie.id)"
           >
-            @if(hasDelete){
+            @if(!movieService.isShowLoaderSignal()){
             <mat-icon>delete</mat-icon>
             }@else {
             <mat-spinner></mat-spinner>

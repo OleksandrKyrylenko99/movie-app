@@ -1,5 +1,9 @@
+@if(movieService.isShowLoaderSignal()){
+<app-loader></app-loader>
+} @if(selectedMovie$ | async; as movieData){
 <app-movie-list
   [movies]="movieData"
   [title]="'Top Rating'"
   [customClass]="'movie__cards'"
 />
+}

@@ -1,4 +1,6 @@
-@if(currentMovie(); as movie ){
+@if(movieService.isShowLoaderSignal()){
+<app-loader></app-loader>
+} @if(movie){
 <section class="movie__content movie-content">
   <div class="movie-content__image">
     <img [src]="path + movie.backdrop_path" [alt]="movie.original_title" />
@@ -44,5 +46,5 @@
   </div>
 </section>
 } @else{
-<app-loader></app-loader>
+<!-- <app-loader></app-loader> -->
 }

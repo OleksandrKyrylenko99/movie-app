@@ -1,6 +1,6 @@
 @if(title){
 <h2>{{ title }}</h2>
-} @if(moviesService.showLoaderSignal()){
+} @if(moviesService.isShowLoaderSignal()){
 <app-loader></app-loader>
 }
 <div [ngClass]="customClass">
