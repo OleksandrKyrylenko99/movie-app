@@ -10,11 +10,13 @@ export const MovieReducer = createReducer(
     MovieActions.loadMoviesList,
     MovieActions.loadSelectedMovieById,
     MovieActions.loadSelectedMoviesListByType,
+    // MovieActions.loadMovieDetailsTeam,
     (state) => ({
       ...state,
       selectedMovieById: null,
       moviesList: null,
       selectedMoviesListByType: null,
+      // getDetailsMovieTeam: null,
     })
   ),
   // успішне завантаження фільмів за категоріями
@@ -95,6 +97,52 @@ export const MovieReducer = createReducer(
     return {
       ...state,
       error: error,
+    };
+  }),
+  // успішне завантаження інформації про команду фільму
+  on(
+    MovieActions.loadMovieDetailsTeamSuccess,
+    (state, { getMovieDetailsTeam }) => ({
+      ...state,
+      getDetailsMovieTeam: getMovieDetailsTeam,
+    })
+  ),
+  // помилка при завантаженні інформації про команду фільму
+  on(MovieActions.loadMovieDetailsTeamFailure, (state, { error }) => {
+    return {
+      ...state,
+      error: error,
+      getMovieDetailsTeam: null,
+    };
+  }),
+  // успішне завантаження ідентифікаторів соц.мереж
+  on(MovieActions.loadExternalIDsSuccess, (state, { getExternalIDs }) => {
+    return {
+      ...state,
+      getExternalIDs: getExternalIDs,
+    };
+  }),
+  // помилка при завантаженні інформації про команду фільму
+  on(MovieActions.loadExternalIDsFailure, (state, { error }) => {
+    return {
+      ...state,
+      error: error,
+      getExternalIDs: null,
+    };
+  }),
+  // успішне завантаження жанрів
+  on(MovieActions.loadGenresSuccess, (state, { getGenres }) => {
+    return {
+      ...state,
+      genresList: getGenres,
+    };
+  }),
+  // помилка при завантаженні жанрів
+  on(MovieActions.loadGenresFailure, (state, { error }) => {
+    return {
+      ...state,
+      error: error,
+      getGenres: null,
     };
   })
 );

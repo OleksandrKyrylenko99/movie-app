@@ -3,6 +3,7 @@ import { Actions, createEffect, ofType } from '@ngrx/effects';
 import * as MovieActions from './actions';
 import { catchError, finalize, map, mergeMap, of, switchMap } from 'rxjs';
 import { MovieService } from '../service/movie/movie.service';
+import { props } from '@ngrx/store';
 
 @Injectable()
 export class MovieEffects {
@@ -115,6 +116,61 @@ export class MovieEffects {
             finalize(() => this.movieService.isShowLoaderSignal.set(false))
           );
       })
+    )
+  );
+  // отримання деталів про команду фільму
+  loadMovieDetailsTeam$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(MovieActions.loadMovieDetailsTeam),
+      mergeMap((props) => {
+        this.movieService.isShowLoaderSignal.set(true);
+        return this.movieService.getMovieDetailsTeam(props.movieId).pipe(
+          map((res) =>
+            MovieActions.loadMovieDetailsTeamSuccess({
+              getMovieDetailsTeam: res,
+            })
+          ),
+          catchError((error) =>
+            of(MovieActions.loadMovieDetailsTeamFailure({ error }))
+          ),
+          finalize(() => this.movieService.isShowLoaderSignal.set(false))
+        );
+      })
+    )
+  );
+
+  // отримання ідентифікаторів соц.мереж
+  loadExternalIDs$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(MovieActions.loadExternalIDs),
+      switchMap((props) =>
+        this.movieService.getExternalIDs(props.movieId).pipe(
+          map((res) => {
+            console.log(res);
+
+            return MovieActions.loadExternalIDsSuccess({ getExternalIDs: res });
+          }),
+          catchError((error) =>
+            of(MovieActions.loadExternalIDsFailure({ error: error }))
+          )
+        )
+      )
+    )
+  );
+  // отримання жанрів
+  loadGenres$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(MovieActions.loadGenres),
+      switchMap((props) =>
+        this.movieService.getGenresList(props.typeGenresList).pipe(
+          map((res) => {
+            return MovieActions.loadGenresSuccess({ getGenres: res });
+          }),
+          catchError((error) =>
+            of(MovieActions.loadGenresFailure({ error: error }))
+          )
+        )
+      )
     )
   );
   constructor(private actions$: Actions, private movieService: MovieService) {}

@@ -1,1 +1,10 @@
-<p>home-page works!</p>
+<main class="home-page home main">
+  <div class="home__banner"></div>
+  @if(genresList){
+  <div class="home__genres genres">
+    @for(genre of genresList.genres;track genre){
+    <div>{{ genre.name }}</div>
+    }
+  </div>
+  }
+</main>

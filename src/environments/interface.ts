@@ -3,5 +3,6 @@ export interface Environment {
   apiKey: string;
   dbUrl: string;
   dbAccountUrl: string;
+  dbGenresUrl: string;
   accessToken: string;
 }

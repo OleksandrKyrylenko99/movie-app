@@ -1,9 +1,138 @@
 @if(movieService.isShowLoaderSignal()){
 <app-loader></app-loader>
 } @if(movie){
-<section class="movie__content movie-content">
+<div
+  class="movie-content__hero"
+  [ngStyle]="{
+    'background-image': 'url(' + pathOriginalImage + movie.backdrop_path + ')'
+  }"
+>
+  <div class="movie-content__container">
+    <div class="movie-content__body body-content">
+      <div class="body-content__items item">
+        <div class="item__column column">
+          <div class="column__image">
+            <img [src]="path + movie.poster_path" [alt]="movie.title" />
+          </div>
+          <div class="column__info info-popularity">
+            <div
+              class="info-popularity__average average"
+              [ngStyle]="{
+                background: getBackgroundGradient(movie.vote_average)
+              }"
+            >
+              <span class="average__value">{{
+                movie.vote_average | roundRating
+              }}</span>
+            </div>
+            <div class="info-popularity__rated">
+              {{ movie.popularity | number }} ratings
+            </div>
+          </div>
+        </div>
+        <div class="item__column column">
+          <div class="column__info info">
+            <h4 class="info__title title">{{ movie.title }}</h4>
+            <div class="info__original-title">
+              <span>Original title:</span>
+              <span>{{ movie.original_title }}</span>
+            </div>
+            <div class="info__release-date">
+              <span>Release date:</span>
+              <span>{{ movie.release_date }}</span>
+            </div>
+          </div>
+          <div class="column__actions action">
+            <button type="button" class="action__button">
+              <span>Watch trailer</span><mat-icon>play_arrow</mat-icon>
+            </button>
+            @if(externalId){
+            <div class="action__social social">
+              <div class="social__item">
+                <a
+                  (click)="
+                    openSocialMedia('instagram', externalId.instagram_id)
+                  "
+                  ><i class="bx bxl-instagram-alt"></i
+                ></a>
+              </div>
+              <div class="social__item">
+                <a (click)="openSocialMedia('facebook', externalId.facebook_id)"
+                  ><i class="bx bxl-facebook-circle"></i
+                ></a>
+              </div>
+              <div class="social__item">
+                <a (click)="openSocialMedia('x', externalId.twitter_id)"
+                  ><i class="bx bxl-twitter"></i
+                ></a>
+              </div>
+              <div class="social__item">
+                <a><i class="bx bx-link"></i></a>
+              </div>
+            </div>
+            }
+          </div>
+          <div class="item__overview">
+            <p>{{ movie.overview }}</p>
+          </div>
+          <div class="column__details details">
+            <div class="details__sub-title">Details</div>
+            <div class="details__row">
+              <div class="details__info info-details">
+                <div class="info-details__label">Genres</div>
+                <div class="info-details__items">
+                  @for(genre of movie.genres; track genre){
+                  <div class="info-details__genre">{{ genre.name }}</div>
+                  }
+                </div>
+              </div>
+              <div class="details__info info-details">
+                <div class="info-details__label">Country of origin</div>
+                <div class="info-details__item">{{ movie.origin_country }}</div>
+              </div>
+              <div class="details__info info-details">
+                <div class="info-details__label">Runtime</div>
+                <div class="info-details__item">{{ movie.runtime }} min</div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="item__column column">
+          <div class="column__cast-crew cast-crew">
+            <h4 class="cast-crew__title title">Cast & Crew</h4>
+            <div class="cast-crew__items">
+              @for(detail of detailsTeam; track detail){
+              <div class="cast-crew__item">
+                <div class="cast-crew__image">
+                  <img
+                    [src]="pathW300 + detail.profile_path"
+                    [alt]="detail.name"
+                  />
+                </div>
+                <div class="cast-crew__person person">
+                  <div class="person__name">{{ detail.name }}</div>
+                  <div class="person__character">
+                    {{ detail.character }}
+                  </div>
+                </div>
+              </div>
+              }
+            </div>
+            <div class="cast-crew__btn">
+              <a (click)="showAllCrew()"
+                >Show all <i class="bx bx-chevron-right-circle"></i
+              ></a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- <section class="movie__content movie-content">
   <div class="movie-content__image">
-    <img [src]="path + movie.backdrop_path" [alt]="movie.original_title" />
+    <img [src]="path + movie.poster_path[0]" [alt]="movie.original_title" />
   </div>
   <div class="movie-content__row">
     <h2 class="movie-content__title">{{ movie.title }}</h2>
@@ -44,7 +173,7 @@
       </div>
     </div>
   </div>
-</section>
+</section> -->
 } @else{
 <!-- <app-loader></app-loader> -->
 }
