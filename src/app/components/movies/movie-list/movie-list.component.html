@@ -1,10 +1,12 @@
-@if(title){
-<h2>{{ title }}</h2>
-} @if(moviesService.isShowLoaderSignal()){
-<app-loader></app-loader>
-}
-<div [ngClass]="customClass">
-  @if(movies){ @for(movie of movies; track movie.id){
-  <app-movie-card [data]="movie"> </app-movie-card>
-  } }
-</div>
+<section class="main">
+  @if(title){
+  <h2>{{ title }}</h2>
+  } @if(moviesService.isShowLoaderSignal()){
+  <app-loader></app-loader>
+  }
+  <div [ngClass]="customClass">
+    @if(movies){ @for(movie of movies; track movie.id){
+    <app-movie-card [data]="movie"> </app-movie-card>
+    } }
+  </div>
+</section>

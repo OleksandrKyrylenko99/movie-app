@@ -1,6 +1,9 @@
 import { createAction, props } from '@ngrx/store';
 import { MovieInfo } from '../types/movie-info.type';
 import { MovieDetails } from '../interface/movie-details';
+import { MovieDetailsTeam } from '../interface/movie-details-team';
+import { ExternalIds } from '../types/externalIds';
+import { GenresList } from '../types/genres';
 
 export const loadMoviesList = createAction(
   '[MoviesList] load Movies List',
@@ -70,5 +73,47 @@ export const removeMovieToSelectedListSuccess = createAction(
 );
 export const removeMovieToSelectedListFailure = createAction(
   '[RemoveMovieToSelectedListType] remove Movie To Selected List Failure',
+  props<{ error: any }>()
+);
+
+// отримання деталів про команду фільму
+export const loadMovieDetailsTeam = createAction(
+  '[MovieDetailsTeam] load Movie Details Team',
+  props<{ movieId: number }>()
+);
+export const loadMovieDetailsTeamSuccess = createAction(
+  '[MovieDetailsTeam] load Movie Details Team Success',
+  props<{ getMovieDetailsTeam: MovieDetailsTeam | null }>()
+);
+export const loadMovieDetailsTeamFailure = createAction(
+  '[MovieDetailsTeamType] load Movie Details Team Failure',
+  props<{ error: any }>()
+);
+
+// отримання ідентифікаторів соц.мереж
+export const loadExternalIDs = createAction(
+  '[ExternalIDs] load External IDs',
+  props<{ movieId: number }>()
+);
+export const loadExternalIDsSuccess = createAction(
+  '[ExternalIDs] load External IDs Success',
+  props<{ getExternalIDs: ExternalIds | null }>()
+);
+export const loadExternalIDsFailure = createAction(
+  '[ExternalIDs] load External IDs Failure',
+  props<{ error: any }>()
+);
+
+// отримання жанрів
+export const loadGenres = createAction(
+  '[Genres] load Genres',
+  props<{ typeGenresList: string }>()
+);
+export const loadGenresSuccess = createAction(
+  '[Genres] load Genres Success',
+  props<{ getGenres: GenresList | null }>()
+);
+export const loadGenresFailure = createAction(
+  '[Genres] load Genres Failure',
   props<{ error: any }>()
 );
