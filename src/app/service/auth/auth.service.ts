@@ -20,7 +20,6 @@ export class AuthService {
   isAuthenticationSignal = signal(false);
   user = new BehaviorSubject<User | null>(null);
   constructor(private http: HttpClient) {}
-
   private getRequestToken(): Observable<any> {
     return this.http
       .get<any>(

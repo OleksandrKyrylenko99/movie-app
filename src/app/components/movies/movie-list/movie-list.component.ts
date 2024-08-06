@@ -1,7 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
-import { SelectedMovieService } from '../../../service/selected-movie/selected-movie.service';
-import { Movie } from '../../../types/movie.type';
-import { SelectMovieListType } from '../../../types/select-movie.type';
+import { Component, Input } from '@angular/core';
 import { MovieInfo } from '../../../types/movie-info.type';
 import { MovieCardComponent } from '../movie-card/movie-card.component';
 import { NgClass } from '@angular/common';

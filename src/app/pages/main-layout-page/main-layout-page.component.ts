@@ -4,9 +4,7 @@ import { SidenavComponent } from '../../components/sidenav/sidenav.component';
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatSelectModule } from '@angular/material/select';
 import { HeaderComponent } from '../../components/header/header.component';
-import { AllMoviePageComponent } from '../all-movie-page/all-movie-page.component';
-import { MovieList } from '../../types/movie-object-list.type';
-import { MovieService } from '../../service/movie/movie.service';
+import { NowPlayingMoviePageComponent } from '../now-playing-movie-page/now-playing-movie-page.component';
 import { AuthService } from '../../service/auth/auth.service';
 
 @Component({
@@ -14,7 +12,7 @@ import { AuthService } from '../../service/auth/auth.service';
   standalone: true,
   imports: [
     RouterOutlet,
-    AllMoviePageComponent,
+    NowPlayingMoviePageComponent,
     HeaderComponent,
     MatSelectModule,
     MatSidenavModule,

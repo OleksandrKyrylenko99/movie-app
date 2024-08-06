@@ -3,7 +3,7 @@
 } @if(selectedMovie$ | async; as movieData){
 <app-movie-list
   [movies]="movieData"
-  [title]="'Popular'"
+  [title]="'Now Playing'"
   [customClass]="'movie__cards'"
 />
 }
