@@ -1,12 +1,14 @@
 import { Injectable, signal } from '@angular/core';
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
-import { Observable, catchError, finalize, map, take } from 'rxjs';
+import { Observable, catchError, finalize, map, take, tap } from 'rxjs';
 import { MovieApiModel } from '../../interface/movie-api-model/movie-api-model.interface';
 import { environment } from '../../../environments/environment';
 import { MovieDetails } from '../../interface/movie-details';
 import { AuthService } from '../auth/auth.service';
 import { MovieInfo } from '../../types/movie-info.type';
 import { AddMovieToFavoritesResponse } from '../../types/add-movie-to-favorites-response';
+import { MovieDetailsTeam } from '../../interface/movie-details-team';
+import { ExternalIds } from '../../types/externalIds';
 
 @Injectable({
   providedIn: 'root',
@@ -111,5 +113,33 @@ export class MovieService {
         ? this.bodyParams(id).removeFavoriteList
         : this.bodyParams(id).removeWatchList
     );
+  }
+
+  // отримання деталів про команду фільму
+  getMovieDetailsTeam(id: number): Observable<MovieDetailsTeam> {
+    return this._http
+      .get<MovieDetailsTeam>(`${environment.dbUrl}/movie/${id}/credits`)
+      .pipe(
+        catchError((err: HttpErrorResponse) => {
+          throw new Error(err.message);
+        })
+      );
+  }
+  // отримання ідентифікаторів соц.мереж
+  getExternalIDs(id: number): Observable<ExternalIds> {
+    return this._http
+      .get<ExternalIds>(`${environment.dbUrl}/movie/${id}/external_ids`)
+      .pipe(
+        tap((res) => console.log(res)),
+        catchError((err: HttpErrorResponse) => {
+          throw new Error(err.message);
+        })
+      );
+  }
+  // отримання списку жанрів
+  getGenresList(typeGenresList: string): Observable<any> {
+    return this._http
+      .get<any>(`${environment.dbGenresUrl}/${typeGenresList}/list`)
+      .pipe(tap((res) => console.log(res)));
   }
 }

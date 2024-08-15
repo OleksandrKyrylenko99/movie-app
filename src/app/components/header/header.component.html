@@ -3,31 +3,40 @@
     <button mat-icon-button (click)="toggleSidebar()" class="menu-icon">
       <mat-icon>menu</mat-icon>
     </button>
-    <nav class="header__actions action">
-      @if(authService.isAuthenticationSignal()){
+    <nav class="header__nav">
+      <ul class="header__menu menu">
+        <li class="menu__item">
+          <button type="button" class="menu__button">Movie</button>
+        </li>
+        <li class="menu__item">
+          <button type="button" class="menu__button">Series</button>
+        </li>
+        <li class="menu__item">
+          <button type="button" class="menu__button">Search</button>
+        </li>
+      </ul>
+      <!-- @if(authService.isAuthenticationSignal()){
       <div class="action__search">
         <button type="submit"><i class="bx bx-search-alt-2"></i></button>
         <input type="text" class="search-input" placeholder="Пошук фільмів" />
       </div>
-      }
-      <ul class="action__list">
-        <li class="action__item">
-          @if(!authService.isAuthenticationSignal()){
-          <button
-            type="button"
-            class="action__auth"
-            mat-raised-button
-            (click)="openAuthorizationForm()"
-          >
-            Гість
-          </button>
-          }@else{
-          <button type="button" class="user__logo">
-            <small>{{ userName | firstLetterUserName }}</small>
-          </button>
-          }
-        </li>
-      </ul>
+      } -->
     </nav>
+    <div class="header__actions action">
+      @if(!authService.isAuthenticationSignal()){
+      <button
+        type="button"
+        class="action__auth"
+        mat-raised-button
+        (click)="openAuthorizationForm()"
+      >
+        Гість
+      </button>
+      }@else{
+      <button type="button" class="user__logo">
+        <small>{{ userName | firstLetterUserName }}</small>
+      </button>
+      }
+    </div>
   </div>
 </header>

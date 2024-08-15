@@ -11,6 +11,7 @@ import { loadMovieByIdResolver } from './resolvers/load-movie-by-id/load-movie-b
 import { AuthPageComponent } from './pages/auth-page/auth-page.component';
 import { NowPlayingMoviePageComponent } from './pages/now-playing-movie-page/now-playing-movie-page.component';
 import { loadMovieDataResolver } from './resolvers/resolve-movie-data/load-movie-data.resolver';
+import { genresResolver } from './resolvers/genres/genres.resolver';
 
 export const routes: Routes = [
   {
@@ -30,6 +31,7 @@ export const routes: Routes = [
       {
         path: 'home',
         component: HomePageComponent,
+        resolve: { genre: genresResolver },
       },
       {
         path: 'movie-now-playing',
