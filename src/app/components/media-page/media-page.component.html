@@ -1,0 +1,36 @@
+<!-- зробити рефакторінг -->
+@if(movieService.isShowLoaderSignal()){
+<app-loader></app-loader>
+}
+<section class="main__media-page main media-page">
+  <div class="media-page__header"></div>
+  <section class="media-page__content content-media-page">
+    <app-media-page-header
+      [title]="title"
+      (filter)="filter($event)"
+      (sorting)="sort($event)"
+      (search)="searchMedia($event)"
+    />
+    @if(!emptyData()){
+    <div class="content-media-page__body body-content">
+      @if(dataMovie){
+      <app-movie-list
+        [movies]="dataMovie"
+        [media]="typeMedia"
+        [customClass]="'movie__cards'"
+      />
+      } @else{<app-movie-list
+        [series]="dataSeries || []"
+        [media]="typeMedia"
+        [customClass]="'movie__cards'"
+      />
+      }
+    </div>
+    }@else{
+    <app-not-find />
+    }
+  </section>
+</section>
+@if(hasError) {
+<p class="error">Невідома помилка</p>
+}

@@ -6,6 +6,7 @@ export const environment: Environment = {
   dbUrl: 'https://api.themoviedb.org/3',
   dbAccountUrl: 'https://api.themoviedb.org/3/account',
   dbGenresUrl: 'https://api.themoviedb.org/3/genre',
+  dbSearchUrl: 'https://api.themoviedb.org/3/search',
   accessToken:
     'eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiJkNTJhODMzNDIxN2IxZjE1OWMyOTgyYzljOWIyMjY5NCIsIm5iZiI6MTcyMTMwNTg2MC44NzMxNDksInN1YiI6IjY2ODY3MTYyNmEwZTRmNzIxZTFiZTE2YSIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.jfzwwpfy5mKJBQsyveHUySrfRzakmrk4dST-UE094Qs',
 };

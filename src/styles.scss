@@ -31,8 +31,8 @@ a {
   color: #fff;
 }
 ::-webkit-scrollbar {
-  width: 0.75rem;
-  height: 0.75rem;
+  width: 5px;
+  height: 5px;
 }
 
 ::-webkit-scrollbar-track {
@@ -47,5 +47,27 @@ a {
   background-color: rgba(38, 112, 109, 0.6);
 }
 .main {
-  padding: 5.625rem 0.9375rem 1.25rem 0.9375rem;
+  padding: 1.25rem 0.9375rem 1.25rem 0.9375rem;
+}
+.mat-content {
+  display: flex;
+  align-items: center !important;
+  flex: 1;
+  flex-direction: row;
+  overflow: hidden;
+}
+.title {
+  color: #fff;
+  font-size: 1.875rem !important;
+  line-height: 1.11;
+  letter-spacing: 0.02em;
+  display: inline-block;
+  &::after {
+    content: "";
+    height: 0.1875rem;
+    width: 90%;
+    display: block;
+    background-color: red;
+    margin-top: 0.25rem;
+  }
 }

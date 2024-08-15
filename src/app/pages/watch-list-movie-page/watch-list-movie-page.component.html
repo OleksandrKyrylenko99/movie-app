@@ -1,7 +1,6 @@
 @if(movieService.isShowLoaderSignal()){
-  <app-loader></app-loader>
-}
-@if(movieList$ | async; as movieList){
+<app-loader></app-loader>
+} @if(movieList$ | async; as movieList){
 <app-selected-movie-list
   [movieData]="movieList"
   (remove)="removeMovie($event)"

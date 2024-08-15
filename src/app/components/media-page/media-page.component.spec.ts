@@ -1,18 +1,18 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { SearchMovieComponent } from './search-movie.component';
+import { MediaPageComponent } from './media-page.component';
 
-describe('SearchMovieComponent', () => {
-  let component: SearchMovieComponent;
-  let fixture: ComponentFixture<SearchMovieComponent>;
+describe('MediaPageComponent', () => {
+  let component: MediaPageComponent;
+  let fixture: ComponentFixture<MediaPageComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [SearchMovieComponent]
+      imports: [MediaPageComponent]
     })
     .compileComponents();
     
-    fixture = TestBed.createComponent(SearchMovieComponent);
+    fixture = TestBed.createComponent(MediaPageComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

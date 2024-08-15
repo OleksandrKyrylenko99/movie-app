@@ -1,8 +1,7 @@
 export type GenresList = {
-  genres: [
-    {
-      id: number;
-      name: string;
-    }
-  ];
+  genres: {
+    id: number;
+    name: string;
+    checked?: boolean;
+  }[];
 };

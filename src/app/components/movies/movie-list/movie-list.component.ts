@@ -4,6 +4,7 @@ import { MovieCardComponent } from '../movie-card/movie-card.component';
 import { NgClass } from '@angular/common';
 import { MovieService } from '../../../service/movie/movie.service';
 import { LoaderComponent } from '../../loader/loader.component';
+import { SeriesInfo } from '../../../types/series-info';
 
 @Component({
   selector: 'app-movie-list',
@@ -14,6 +15,8 @@ import { LoaderComponent } from '../../loader/loader.component';
 })
 export class MovieListComponent {
   @Input() movies!: MovieInfo[];
+  @Input() series!: SeriesInfo[];
+  @Input() media!: string;
   @Input() title!: string;
   @Input() customClass: string = '';
 

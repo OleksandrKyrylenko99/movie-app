@@ -1,0 +1,129 @@
+<!-- Зробити рефакторінг -->
+<div class="content-media-page__header">
+  <h2 class="content-media-page__title title">{{ title }}</h2>
+  <div class="content-media-page__search search">
+    <input type="text" placeholder="Search.." [formControl]="searchControl" />
+    <mat-icon>search</mat-icon>
+  </div>
+  <div class="body-content__actions actions">
+    <ul class="action-list">
+      <!-- Реалізувати скидання фільтрів -->
+      <li class="action-list__item">
+        <button
+          type="button"
+          class="action-button action-button--filter"
+          (click)="toggleDropdown('filter')"
+        >
+          <mat-icon>filter_alt</mat-icon>
+        </button>
+        <ul
+          class="sub-action-list"
+          [ngClass]="{
+                open: activeDropdown === 'filter',
+                closed: activeDropdown !== 'filter',
+              }"
+        >
+          <li class="sub-action-list__item">
+            <div class="sub-action-list__header header-sub-action">
+              <div class="header-sub-action__inner">
+                <div class="header-sub-action__title">Filters</div>
+                <span></span>
+                <button
+                  type="button"
+                  class="header-sub-action__apply"
+                  (click)="apply()"
+                >
+                  Apply
+                </button>
+              </div>
+              <button
+                type="button"
+                class="header-sub-action__close"
+                (click)="closeDropdown()"
+              >
+                <mat-icon>close</mat-icon>
+              </button>
+            </div>
+            <span class="sub-action-list__line"></span>
+            <div class="sub-action-list__body body-sub-action">
+              @if(genresList){ @for(genre of genresList.genres; track genre; let
+              i = $index) {
+              <label [for]="'input-' + (i + 1)" class="body-sub-action__item">
+                <input
+                  type="checkbox"
+                  [id]="'input-' + (i + 1)"
+                  class="input-checkbox"
+                  [(ngModel)]="genre.checked"
+                />
+                <span class="checkbox">
+                  <svg viewBox="0 0 22 16" fill="none">
+                    <path d="M1 6.85L8.09677 14L21 1" />
+                  </svg>
+                </span>
+                <span>{{ genre.name }}</span>
+              </label>
+              } }
+            </div>
+          </li>
+        </ul>
+      </li>
+      <li class="action-list__item">
+        <button
+          type="button"
+          class="action-button action-button--sort"
+          (click)="toggleDropdown('sort')"
+        >
+          <mat-icon>filter_list</mat-icon>
+        </button>
+        <ul
+          class="sub-action-list"
+          [ngClass]="{
+              open: activeDropdown === 'sort',
+              closed: activeDropdown !== 'sort',
+            }"
+        >
+          <li class="sub-action-list__item">
+            <div class="sub-action-list__header header-sub-action">
+              <div class="header-sub-action__title">Sort by</div>
+              <button
+                type="button"
+                class="header-sub-action__close"
+                (click)="closeDropdown()"
+              >
+                <mat-icon>close</mat-icon>
+              </button>
+            </div>
+            <span class="sub-action-list__line"></span>
+            <div class="sub-action-list__body body-sub-action">
+              @for(sortDetail of sortDetails; track sortDetail){
+              <div class="body-sub-action__column column-sub-action">
+                <div class="column-sub-action__title">
+                  {{ sortDetail.title }}:
+                </div>
+                <div class="column-sub-action__radio-group radio-group">
+                  @for(radio_group of sortDetail.radio_groups; track
+                  radio_group){
+                  <label
+                    [for]="radio_group.value"
+                    (click)="sort(radio_group.value)"
+                  >
+                    <input
+                      type="radio"
+                      [id]="radio_group.value"
+                      [value]="radio_group.value"
+                      name="sortOptions"
+                    />
+                    <span></span>
+                    {{ radio_group.title }}
+                  </label>
+                  }
+                </div>
+              </div>
+              }
+            </div>
+          </li>
+        </ul>
+      </li>
+    </ul>
+  </div>
+</div>

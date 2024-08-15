@@ -1,17 +1,29 @@
 <mat-card>
-  <div class="card-movie__average">{{ data.vote_average | roundRating }}</div>
+  <div class="card-movie__average">
+    {{
+      movieData
+        ? (movieData.vote_average | roundRating)
+        : (serieData.vote_average | roundRating)
+    }}
+  </div>
   <div class="card-movie__image">
-    <img mat-card-image [src]="path + data.poster_path" [alt]="data.title" />
+    <img
+      mat-card-image
+      [src]="
+        movieData ? path + movieData.poster_path : path + serieData.poster_path
+      "
+      [alt]="getTitleOrName() | titleCaseWords"
+    />
     <button
       mat-icon-button
-      (click)="addMovie(data.id, 'favorite')"
+      (click)="addMovie(movieData ? movieData.id : serieData.id, 'favorite')"
       class="favorite"
     >
       <mat-icon>favorite_border</mat-icon>
     </button>
     <button
       mat-icon-button
-      (click)="addMovie(data.id, 'watchlist')"
+      (click)="addMovie(movieData ? movieData.id : serieData.id, 'watchlist')"
       class="watch-list"
     >
       <mat-icon>bookmark_border</mat-icon>
@@ -19,14 +31,63 @@
     <button
       mat-icon-button
       class="play"
-      [routerLink]="['/movie-details/', data.id]"
+      [routerLink]="[
+        movieData ? '/movie-details/' : '/tv-details/',
+        movieData ? movieData.id : serieData.id
+      ]"
     >
       <mat-icon>play_arrow</mat-icon>
     </button>
   </div>
   <mat-card-content>
-    <a class="card-movie__title" [routerLink]="['/movie-details/', data.id]">{{
-      data.title | titleCaseWords
-    }}</a>
+    <a
+      class="card-movie__title"
+      [routerLink]="[
+        movieData ? '/movie-details/' : '/tv-details/',
+        movieData ? movieData.id : serieData.id
+      ]"
+      >{{ getTitleOrName() | titleCaseWords }}</a
+    >
   </mat-card-content>
+
+  <!-- @if(media==='tv'){
+  <div class="card-movie__average">
+    {{ seriesData.vote_average | roundRating }}
+  </div>
+  <div class="card-movie__image">
+    <img
+      mat-card-image
+      [src]="path + seriesData.poster_path"
+      [alt]="seriesData.name"
+    />
+    <button
+      mat-icon-button
+      (click)="addMovie(seriesData.id, 'favorite')"
+      class="favorite"
+    >
+      <mat-icon>favorite_border</mat-icon>
+    </button>
+    <button
+      mat-icon-button
+      (click)="addMovie(seriesData.id, 'watchlist')"
+      class="watch-list"
+    >
+      <mat-icon>bookmark_border</mat-icon>
+    </button>
+    <button
+      mat-icon-button
+      class="play"
+      [routerLink]="['/movie-details/', seriesData.id]"
+    >
+      <mat-icon>play_arrow</mat-icon>
+    </button>
+  </div>
+  <mat-card-content>
+    <a
+      class="card-movie__title"
+      [routerLink]="['/movie-details/', seriesData.id]"
+      >{{ seriesData.name | titleCaseWords }}</a
+    >
+  </mat-card-content>
+  } -->
 </mat-card>

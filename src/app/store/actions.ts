@@ -4,10 +4,13 @@ import { MovieDetails } from '../interface/movie-details';
 import { MovieDetailsTeam } from '../interface/movie-details-team';
 import { ExternalIds } from '../types/externalIds';
 import { GenresList } from '../types/genres';
+import { SeriesInfo } from '../types/series-info';
+import { GetParams } from '../types/get-params-media';
+import { SeriesDetails } from '../interface/series-details';
 
 export const loadMoviesList = createAction(
   '[MoviesList] load Movies List',
-  props<{ category: string }>()
+  props<{ mediaType: string; category: string }>()
 );
 export const loadMoviesListSuccess = createAction(
   '[MoviesList] load Movies List Success',
@@ -21,7 +24,7 @@ export const loadMoviesListFailure = createAction(
 // отримання вибраного фільма за його id
 export const loadSelectedMovieById = createAction(
   '[SelectedMovieById] load Selected Movie By Id',
-  props<{ movieId: number }>()
+  props<{ id: number; mediaType: string }>()
 );
 export const loadSelectedMovieByIdSuccess = createAction(
   '[SelectedMovieById] load Selected Movie By Id Success',
@@ -29,6 +32,19 @@ export const loadSelectedMovieByIdSuccess = createAction(
 );
 export const loadSelectedMovieByIdFailure = createAction(
   '[SelectedMovieById] load Selected Movie By Id Failure',
+  props<{ error: any }>()
+);
+// отримання вибраного серіала за його id
+export const loadSelectedSeriesById = createAction(
+  '[SelectedSeriesById] load Selected Series By Id',
+  props<{ id: number; mediaType: string }>()
+);
+export const loadSelectedSeriesByIdSuccess = createAction(
+  '[SelectedSeriesById] load Selected Series By Id Success',
+  props<{ selectedSeriesById: SeriesDetails | null }>()
+);
+export const loadSelectedSeriesByIdFailure = createAction(
+  '[SelectedSeriesById] load Selected Series By Id Failure',
   props<{ error: any }>()
 );
 
@@ -77,23 +93,23 @@ export const removeMovieToSelectedListFailure = createAction(
 );
 
 // отримання деталів про команду фільму
-export const loadMovieDetailsTeam = createAction(
-  '[MovieDetailsTeam] load Movie Details Team',
-  props<{ movieId: number }>()
+export const loadMovieOrSerieDetailsTeam = createAction(
+  '[MovieOrSerieDetailsTeam] load Movie Or Serie Details Team',
+  props<{ movieId: number; mediaType: string }>()
 );
-export const loadMovieDetailsTeamSuccess = createAction(
-  '[MovieDetailsTeam] load Movie Details Team Success',
-  props<{ getMovieDetailsTeam: MovieDetailsTeam | null }>()
+export const loadMovieOrSerieDetailsTeamSuccess = createAction(
+  '[MovieOrSerieDetailsTeam] load Movie Or Serie Details Team Success',
+  props<{ getMovieOrSerieDetailsTeam: MovieDetailsTeam | null }>()
 );
-export const loadMovieDetailsTeamFailure = createAction(
-  '[MovieDetailsTeamType] load Movie Details Team Failure',
+export const loadMovieOrSerieDetailsTeamFailure = createAction(
+  '[MovieOrSerieDetailsTeamType] load Movie Or Serie Details Team Failure',
   props<{ error: any }>()
 );
 
 // отримання ідентифікаторів соц.мереж
 export const loadExternalIDs = createAction(
   '[ExternalIDs] load External IDs',
-  props<{ movieId: number }>()
+  props<{ movieId: number; mediaType: string }>()
 );
 export const loadExternalIDsSuccess = createAction(
   '[ExternalIDs] load External IDs Success',
@@ -115,5 +131,39 @@ export const loadGenresSuccess = createAction(
 );
 export const loadGenresFailure = createAction(
   '[Genres] load Genres Failure',
+  props<{ error: any }>()
+);
+
+// відображення фільмів
+export const loadSelectMediaMovies = createAction(
+  '[Media Items] load Select Media Movies',
+  props<{
+    typeMedia: string;
+    params: GetParams;
+  }>()
+);
+export const loadSelectMediaMoviesSuccess = createAction(
+  '[Media Movies] load Select Media Movies Success',
+  props<{ selectMediaMovies: MovieInfo[] | null }>()
+);
+export const loadSelectMediaMoviesFailure = createAction(
+  '[Media Movies] load Select Media Movies Failure',
+  props<{ error: any }>()
+);
+
+// відображення серіалів
+export const loadSelectMediaSeries = createAction(
+  '[Media Items] load Select Media Series',
+  props<{
+    typeMedia: string;
+    params: GetParams;
+  }>()
+);
+export const loadSelectMediaSeriesSuccess = createAction(
+  '[Media Series] load Select Media Series Success',
+  props<{ selectMediaSeries: SeriesInfo[] | null }>()
+);
+export const loadSelectMediaSeriesFailure = createAction(
+  '[Media Series] load Select Media Series Failure',
   props<{ error: any }>()
 );

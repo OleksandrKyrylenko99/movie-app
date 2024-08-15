@@ -6,9 +6,12 @@ import { EMPTY, of } from 'rxjs';
 
 export const loadMovieDataResolver: ResolveFn<boolean> = (route, state) => {
   const categoryType = route.data['categoryType'];
-  
+  const mediaType = route.data['mediaType'];
+
   if (categoryType) {
-    inject(Store).dispatch(loadMoviesList({ category: categoryType }));
+    inject(Store).dispatch(
+      loadMoviesList({ mediaType: mediaType, category: categoryType })
+    );
     return of(true);
   } else return EMPTY;
 };

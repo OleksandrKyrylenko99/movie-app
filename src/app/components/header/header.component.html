@@ -4,23 +4,11 @@
       <mat-icon>menu</mat-icon>
     </button>
     <nav class="header__nav">
-      <ul class="header__menu menu">
-        <li class="menu__item">
-          <button type="button" class="menu__button">Movie</button>
-        </li>
-        <li class="menu__item">
-          <button type="button" class="menu__button">Series</button>
-        </li>
-        <li class="menu__item">
-          <button type="button" class="menu__button">Search</button>
-        </li>
-      </ul>
-      <!-- @if(authService.isAuthenticationSignal()){
-      <div class="action__search">
-        <button type="submit"><i class="bx bx-search-alt-2"></i></button>
-        <input type="text" class="search-input" placeholder="Пошук фільмів" />
-      </div>
-      } -->
+      @if(authService.isAuthenticationSignal()){
+      <button class="search-button" routerLink="/search">
+        Search <mat-icon>search</mat-icon>
+      </button>
+      }
     </nav>
     <div class="header__actions action">
       @if(!authService.isAuthenticationSignal()){

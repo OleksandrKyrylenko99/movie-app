@@ -1,9 +1,16 @@
 import { Injectable } from '@angular/core';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
 import * as MovieActions from './actions';
-import { catchError, finalize, map, mergeMap, of, switchMap } from 'rxjs';
+import {
+  catchError,
+  debounceTime,
+  finalize,
+  map,
+  mergeMap,
+  of,
+  switchMap,
+} from 'rxjs';
 import { MovieService } from '../service/movie/movie.service';
-import { props } from '@ngrx/store';
 
 @Injectable()
 export class MovieEffects {
@@ -11,40 +18,66 @@ export class MovieEffects {
   loadMoviesList$ = createEffect(() =>
     this.actions$.pipe(
       ofType(MovieActions.loadMoviesList),
-      mergeMap(({ category }) => {
+      mergeMap((props) => {
         this.movieService.isShowLoaderSignal.set(true);
-        return this.movieService.getMoviesByCategories(category).pipe(
-          map((movies) =>
-            MovieActions.loadMoviesListSuccess({
-              moviesList: movies.results,
-            })
-          ),
-          catchError((error) =>
-            of(MovieActions.loadMoviesListFailure({ error }))
-          ),
-          finalize(() => this.movieService.isShowLoaderSignal.set(false))
-        );
+        return this.movieService
+          .getMoviesByCategories(props.mediaType, props.category)
+          .pipe(
+            map((movies) =>
+              MovieActions.loadMoviesListSuccess({
+                moviesList: movies.results,
+              })
+            ),
+            catchError((error) =>
+              of(MovieActions.loadMoviesListFailure({ error }))
+            ),
+            finalize(() => this.movieService.isShowLoaderSignal.set(false))
+          );
       })
     )
   );
 
   // запит на отримання вибраного фільму за його id
-  loadSelectedMovieDetails$ = createEffect(() =>
+  loadSelectedMovieById$ = createEffect(() =>
     this.actions$.pipe(
       ofType(MovieActions.loadSelectedMovieById),
       mergeMap((props) => {
         this.movieService.isShowLoaderSignal.set(true);
-        return this.movieService.getMovieById(props.movieId).pipe(
-          map((movie) =>
-            MovieActions.loadSelectedMovieByIdSuccess({
-              selectedMovieById: movie,
-            })
-          ),
-          catchError((error) =>
-            of(MovieActions.loadSelectedMovieByIdFailure({ error }))
-          ),
-          finalize(() => this.movieService.isShowLoaderSignal.set(false))
-        );
+        return this.movieService
+          .getMovieOrSeriesById(props.id, props.mediaType)
+          .pipe(
+            map((movie) =>
+              MovieActions.loadSelectedMovieByIdSuccess({
+                selectedMovieById: movie,
+              })
+            ),
+            catchError((error) =>
+              of(MovieActions.loadSelectedMovieByIdFailure({ error }))
+            ),
+            finalize(() => this.movieService.isShowLoaderSignal.set(false))
+          );
+      })
+    )
+  );
+  // запит на отримання вибраного серіалу за його id
+  loadSelectedSeriesById$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(MovieActions.loadSelectedSeriesById),
+      mergeMap((props) => {
+        this.movieService.isShowLoaderSignal.set(true);
+        return this.movieService
+          .getMovieOrSeriesById(props.id, props.mediaType)
+          .pipe(
+            map((movie) =>
+              MovieActions.loadSelectedSeriesByIdSuccess({
+                selectedSeriesById: movie,
+              })
+            ),
+            catchError((error) =>
+              of(MovieActions.loadSelectedSeriesByIdFailure({ error }))
+            ),
+            finalize(() => this.movieService.isShowLoaderSignal.set(false))
+          );
       })
     )
   );
@@ -119,22 +152,24 @@ export class MovieEffects {
     )
   );
   // отримання деталів про команду фільму
-  loadMovieDetailsTeam$ = createEffect(() =>
+  loadMoviesOrSerieDetailsTeam$ = createEffect(() =>
     this.actions$.pipe(
-      ofType(MovieActions.loadMovieDetailsTeam),
+      ofType(MovieActions.loadMovieOrSerieDetailsTeam),
       mergeMap((props) => {
         this.movieService.isShowLoaderSignal.set(true);
-        return this.movieService.getMovieDetailsTeam(props.movieId).pipe(
-          map((res) =>
-            MovieActions.loadMovieDetailsTeamSuccess({
-              getMovieDetailsTeam: res,
-            })
-          ),
-          catchError((error) =>
-            of(MovieActions.loadMovieDetailsTeamFailure({ error }))
-          ),
-          finalize(() => this.movieService.isShowLoaderSignal.set(false))
-        );
+        return this.movieService
+          .getMovieDetailsTeam(props.movieId, props.mediaType)
+          .pipe(
+            map((res) =>
+              MovieActions.loadMovieOrSerieDetailsTeamSuccess({
+                getMovieOrSerieDetailsTeam: res,
+              })
+            ),
+            catchError((error) =>
+              of(MovieActions.loadMovieOrSerieDetailsTeamFailure({ error }))
+            ),
+            finalize(() => this.movieService.isShowLoaderSignal.set(false))
+          );
       })
     )
   );
@@ -144,7 +179,7 @@ export class MovieEffects {
     this.actions$.pipe(
       ofType(MovieActions.loadExternalIDs),
       switchMap((props) =>
-        this.movieService.getExternalIDs(props.movieId).pipe(
+        this.movieService.getExternalIDs(props.movieId, props.mediaType).pipe(
           map((res) => {
             console.log(res);
 
@@ -171,6 +206,50 @@ export class MovieEffects {
           )
         )
       )
+    )
+  );
+  loadSelectMediaMovies$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(MovieActions.loadSelectMediaMovies),
+      mergeMap((props) => {
+        this.movieService.isShowLoaderSignal.set(true);
+        return this.movieService
+          .getMediaList(props.typeMedia, props.params)
+          .pipe(
+            map((res) => {
+              return MovieActions.loadSelectMediaMoviesSuccess({
+                selectMediaMovies: res,
+              });
+            }),
+            catchError((error) =>
+              of(MovieActions.loadSelectMediaMoviesFailure({ error: error }))
+            ),
+            debounceTime(500),
+            finalize(() => this.movieService.isShowLoaderSignal.set(false))
+          );
+      })
+    )
+  );
+
+  loadSelectMediaSeries$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(MovieActions.loadSelectMediaSeries),
+      mergeMap((props) => {
+        this.movieService.isShowLoaderSignal.set(true);
+        return this.movieService
+          .getMediaList(props.typeMedia, props.params)
+          .pipe(
+            map((res) => {
+              return MovieActions.loadSelectMediaSeriesSuccess({
+                selectMediaSeries: res,
+              });
+            }),
+            catchError((error) =>
+              of(MovieActions.loadSelectMediaSeriesFailure({ error: error }))
+            ),
+            finalize(() => this.movieService.isShowLoaderSignal.set(false))
+          );
+      })
     )
   );
   constructor(private actions$: Actions, private movieService: MovieService) {}

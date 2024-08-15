@@ -10,14 +10,18 @@ export const selectMovieDetails = createSelector(
   selectState,
   (state) => state.selectedMovieById
 );
+export const selectSeriesDetails = createSelector(
+  selectState,
+  (state) => state.selectedSeriesById
+);
 export const selectMoviesListByType = createSelector(
   selectState,
   (state) => state.selectedMoviesListByType
 );
 
-export const selectMovieDetailsTeam = createSelector(
+export const selectMovieOrSerieDetailsTeam = createSelector(
   selectState,
-  (state) => state.getDetailsMovieTeam
+  (state) => state.getDetailsMovieOrSerieTeam
 );
 
 export const selectExternalIDs = createSelector(
@@ -28,4 +32,13 @@ export const selectExternalIDs = createSelector(
 export const selectGenres = createSelector(
   selectState,
   (state) => state.genresList
+);
+
+export const selectMediaMovies = createSelector(
+  selectState,
+  (state) => state.selectMediaMovies
+);
+export const selectMediaSeries = createSelector(
+  selectState,
+  (state) => state.selectMediaSeries
 );

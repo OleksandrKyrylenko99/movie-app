@@ -5,4 +5,5 @@ export interface Environment {
   dbAccountUrl: string;
   dbGenresUrl: string;
   accessToken: string;
+  dbSearchUrl: string;
 }
