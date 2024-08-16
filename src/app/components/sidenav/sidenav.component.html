@@ -1,20 +1,43 @@
 <div class="sidenav">
-  <a class="logo" routerLink="/"><i class="bx bx-camera-movie"></i>Movies</a>
+  <a class="logo" routerLink="/"
+    ><i class="bx bx-camera-movie"></i>Moon<span>Flix</span></a
+  >
   <mat-divider></mat-divider>
   <mat-nav-list>
-    <div class="menu__nav">
+    <div class="menu__list menu">
+      <div class="menu__title">Menu</div>
       <a
         mat-list-item
         routerLink="/home"
-        class="nav__item"
+        class="menu__item"
         routerLinkActive="list-item-active"
       >
         <mat-icon>home</mat-icon>Home
       </a>
       <a
         mat-list-item
+        routerLink="/movie"
+        class="menu__item"
+        routerLinkActive="list-item-active"
+      >
+        <mat-icon>movie</mat-icon>Movie
+      </a>
+      <a
+        mat-list-item
+        routerLink="/series"
+        class="menu__item"
+        routerLinkActive="list-item-active"
+      >
+        <mat-icon>tv</mat-icon>TV Series
+      </a>
+    </div>
+    <mat-divider></mat-divider>
+    <div class="menu__list">
+      <div class="menu__title">MediaList</div>
+      <a
+        mat-list-item
         routerLink="/movie-now-playing"
-        class="nav__item"
+        class="menu__item"
         routerLinkActive="list-item-active"
       >
         <mat-icon>play_arrow</mat-icon>Now Playing
@@ -35,7 +58,8 @@
       </a>
     </div>
     <mat-divider></mat-divider>
-    <div class="selected-movie__nav">
+    <div class="menu__list">
+      <div class="menu__title">Library</div>
       <a
         mat-list-item
         routerLink="/favourite-movie"
@@ -51,7 +75,7 @@
         <i class="bx bxs-bookmark-star"></i>WatchList
       </a>
     </div>
-    <mat-divider></mat-divider>
+    <!-- <mat-divider></mat-divider> -->
   </mat-nav-list>
   @if(authService.isAuthenticationSignal()){
   <mat-divider></mat-divider>

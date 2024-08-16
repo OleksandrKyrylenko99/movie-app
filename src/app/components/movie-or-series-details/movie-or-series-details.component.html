@@ -1,0 +1,176 @@
+@if(MediaManagementService.isShowLoaderSignal()){
+<app-loader></app-loader>
+} @if(movie || series){
+<div
+  class="media-content__hero"
+  [ngStyle]="
+    movie
+      ? {
+          'background-image':
+            'url(' + pathOriginalImage + movie.backdrop_path + ')'
+        }
+      : {
+          'background-image':
+            'url(' + pathOriginalImage + series?.backdrop_path + ')'
+        }
+  "
+>
+  <div class="media-content__container">
+    <div class="media-content__body body-content">
+      <div class="body-content__items item">
+        <div class="item__column column">
+          <div class="column__image">
+            <img
+              [src]="
+                movie ? path + movie.poster_path : path + series?.poster_path
+              "
+              [alt]="movie ? movie.title : series?.name"
+            />
+          </div>
+          <div class="column__info info-popularity">
+            @if(movie){
+            <div
+              class="info-popularity__average average"
+              [ngStyle]="{
+                background: getBackgroundGradient(movie.vote_average)
+              }"
+            >
+              <span class="average__value">{{
+                movie.vote_average | roundRating
+              }}</span>
+            </div>
+            }@else if(series){
+            <div
+              class="info-popularity__average average"
+              [ngStyle]="{
+                background: getBackgroundGradient(series.vote_average)
+              }"
+            >
+              <span class="average__value">{{
+                series.vote_average | roundRating
+              }}</span>
+            </div>
+            }
+            <div class="info-popularity__rated">
+              {{ movie ? (movie.popularity | number) : series?.popularity }}
+              Popularity
+            </div>
+          </div>
+        </div>
+        <div class="item__column column">
+          <div class="column__info info">
+            <h4 class="info__label label">
+              {{ movie ? movie.title : series?.name }}
+            </h4>
+            <div class="info__original-title">
+              <span>Original title:</span>
+              <span>{{
+                movie ? movie.original_title : series?.original_name
+              }}</span>
+            </div>
+            <div class="info__release-date">
+              <span>Release date:</span>
+              <span>{{
+                movie ? movie.release_date : series?.first_air_date
+              }}</span>
+            </div>
+          </div>
+          <div class="column__actions action">
+            <button type="button" class="action__button">
+              <span>Watch trailer</span><mat-icon>play_arrow</mat-icon>
+            </button>
+            @if(externalId){
+            <div class="action__social social">
+              <div class="social__item">
+                <a
+                  (click)="
+                    openSocialMedia('instagram', externalId.instagram_id)
+                  "
+                  ><i class="bx bxl-instagram-alt"></i
+                ></a>
+              </div>
+              <div class="social__item">
+                <a (click)="openSocialMedia('facebook', externalId.facebook_id)"
+                  ><i class="bx bxl-facebook-circle"></i
+                ></a>
+              </div>
+              <div class="social__item">
+                <a (click)="openSocialMedia('x', externalId.twitter_id)"
+                  ><i class="bx bxl-twitter"></i
+                ></a>
+              </div>
+              <div class="social__item">
+                <a><i class="bx bx-link"></i></a>
+              </div>
+            </div>
+            }
+          </div>
+          <div class="item__overview">
+            <p>{{ movie ? movie.overview : series?.overview }}</p>
+          </div>
+          <div class="column__details details">
+            <div class="details__sub-title">Details</div>
+            <div class="details__row">
+              <div class="details__info info-details">
+                <div class="info-details__label">Genres</div>
+                <div class="info-details__items">
+                  @if(movie){ @for(genre of movie.genres; track genre){
+                  <div class="info-details__genre">{{ genre.name }}</div>
+                  } }@else if(series){ @for(genre of series.genres; track
+                  genre){
+                  <div class="info-details__genre">{{ genre.name }}</div>
+                  } }
+                </div>
+              </div>
+              <div class="details__info info-details">
+                <div class="info-details__label">Country of origin</div>
+                <div class="info-details__item">
+                  {{ movie ? movie.origin_country : series?.origin_country }}
+                </div>
+              </div>
+              @if(movie){
+              <div class="details__info info-details">
+                <div class="info-details__label">Runtime</div>
+                <div class="info-details__item">{{ movie.runtime }} min</div>
+              </div>
+              }
+            </div>
+          </div>
+        </div>
+        <div class="item__column column">
+          <div class="column__cast-crew cast-crew">
+            <h4 class="cast-crew__label label">Cast & Crew</h4>
+            <div class="cast-crew__items">
+              @for(detail of detailsTeam; track detail){
+              <div class="cast-crew__item">
+                <div class="cast-crew__image">
+                  @if(detail.profile_path){
+                  <img
+                    [src]="pathW300 + detail.profile_path"
+                    [alt]="detail.name"
+                  />
+                  }@else {
+                  <img src="assets/user.png" [alt]="detail.name" />
+                  }
+                </div>
+                <div class="cast-crew__person person">
+                  <div class="person__name">{{ detail.name }}</div>
+                  <div class="person__character">
+                    {{ detail.character }}
+                  </div>
+                </div>
+              </div>
+              }
+            </div>
+            <div class="cast-crew__btn">
+              <a (click)="showAllCrew()"
+                >Show all <i class="bx bx-chevron-right-circle"></i
+              ></a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+}

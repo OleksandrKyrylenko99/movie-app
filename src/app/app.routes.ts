@@ -7,11 +7,15 @@ import { MainLayoutPageComponent } from './pages/main-layout-page/main-layout-pa
 import { authGuard } from './guards/auth.guard';
 import { WatchListMoviePageComponent } from './pages/watch-list-movie-page/watch-list-movie-page.component';
 import { FavouriteMoviePageComponent } from './pages/favourite-movie-page/favourite-movie-page.component';
-import { loadMovieByIdResolver } from './resolvers/load-movie-by-id/load-movie-by-id.resolver';
+import { loadMovieOrSerieByIdResolver } from './resolvers/load-movie-or-series-by-id/load-movie-or-series-by-id.resolver';
 import { AuthPageComponent } from './pages/auth-page/auth-page.component';
 import { NowPlayingMoviePageComponent } from './pages/now-playing-movie-page/now-playing-movie-page.component';
 import { loadMovieDataResolver } from './resolvers/resolve-movie-data/load-movie-data.resolver';
 import { genresResolver } from './resolvers/genres/genres.resolver';
+import { MoviePageComponent } from './pages/movie-page/movie-page.component';
+import { SeriesPageComponent } from './pages/series-page/series-page.component';
+import { SeriesDetailsPageComponent } from './pages/series-details-page/series-details-page.component';
+import { SearchPageComponent } from './pages/search-page/search-page.component';
 
 export const routes: Routes = [
   {
@@ -41,6 +45,7 @@ export const routes: Routes = [
         },
         data: {
           categoryType: 'now_playing',
+          mediaType: 'movie',
         },
       },
       {
@@ -51,6 +56,7 @@ export const routes: Routes = [
         },
         data: {
           categoryType: 'popular',
+          mediaType: 'movie',
         },
       },
 
@@ -62,12 +68,24 @@ export const routes: Routes = [
         },
         data: {
           categoryType: 'top_rated',
+          mediaType: 'movie',
         },
       },
       {
         path: 'movie-details/:id',
         component: MovieDetailsPageComponent,
-        resolve: { currentMovie: loadMovieByIdResolver },
+        resolve: { currentMovie: loadMovieOrSerieByIdResolver },
+        data: {
+          mediaType: 'movie',
+        },
+      },
+      {
+        path: 'tv-details/:id',
+        component: SeriesDetailsPageComponent,
+        resolve: { currentMovie: loadMovieOrSerieByIdResolver },
+        data: {
+          mediaType: 'tv',
+        },
       },
       {
         path: 'watch-list-movie',
@@ -82,6 +100,26 @@ export const routes: Routes = [
         canActivate: [
           authGuard({ isAuthentication: true, otherwise: '/authenticate' }),
         ],
+      },
+      {
+        path: 'movie',
+        component: MoviePageComponent,
+        resolve: { genre: genresResolver },
+        data: {
+          typePage: 'movie',
+        },
+      },
+      {
+        path: 'series',
+        component: SeriesPageComponent,
+        resolve: { genre: genresResolver },
+        data: {
+          typePage: 'tv',
+        },
+      },
+      {
+        path: 'search',
+        component: SearchPageComponent,
       },
     ],
   },

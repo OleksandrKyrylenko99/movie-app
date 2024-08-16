@@ -9,14 +9,20 @@ export const MovieReducer = createReducer(
   on(
     MovieActions.loadMoviesList,
     MovieActions.loadSelectedMovieById,
+    MovieActions.loadSelectedSeriesById,
     MovieActions.loadSelectedMoviesListByType,
-    // MovieActions.loadMovieDetailsTeam,
+    MovieActions.loadMovieOrSerieDetailsTeam,
+    MovieActions.loadSelectMoviesOrSeries,
+    MovieActions.loadResultSearchMoviesOrSeries,
     (state) => ({
       ...state,
       selectedMovieById: null,
+      selectedSeriesById: null,
       moviesList: null,
       selectedMoviesListByType: null,
-      // getDetailsMovieTeam: null,
+      getDetailsMovieOrSerieTeam: null,
+      selectMoviesOrSeries: null,
+      searchMoviesOrSeries: null,
     })
   ),
   // успішне завантаження фільмів за категоріями
@@ -47,6 +53,23 @@ export const MovieReducer = createReducer(
   ),
   // Завантаження фільму за його id  завершено з помилкою
   on(MovieActions.loadSelectedMovieByIdFailure, (state, { error }) => {
+    return {
+      ...state,
+      error: error,
+    };
+  }),
+  // Завантаження серіалу за його id завершено успішно
+  on(
+    MovieActions.loadSelectedSeriesByIdSuccess,
+    (state, { selectedSeriesById }) => {
+      return {
+        ...state,
+        selectedSeriesById: selectedSeriesById,
+      };
+    }
+  ),
+  // Завантаження фільму за його id  завершено з помилкою
+  on(MovieActions.loadSelectedSeriesByIdFailure, (state, { error }) => {
     return {
       ...state,
       error: error,
@@ -101,18 +124,18 @@ export const MovieReducer = createReducer(
   }),
   // успішне завантаження інформації про команду фільму
   on(
-    MovieActions.loadMovieDetailsTeamSuccess,
-    (state, { getMovieDetailsTeam }) => ({
+    MovieActions.loadMovieOrSerieDetailsTeamSuccess,
+    (state, { getMovieOrSerieDetailsTeam }) => ({
       ...state,
-      getDetailsMovieTeam: getMovieDetailsTeam,
+      getDetailsMovieOrSerieTeam: getMovieOrSerieDetailsTeam,
     })
   ),
   // помилка при завантаженні інформації про команду фільму
-  on(MovieActions.loadMovieDetailsTeamFailure, (state, { error }) => {
+  on(MovieActions.loadMovieOrSerieDetailsTeamFailure, (state, { error }) => {
     return {
       ...state,
       error: error,
-      getMovieDetailsTeam: null,
+      getMovieOrSerieDetailsTeam: null,
     };
   }),
   // успішне завантаження ідентифікаторів соц.мереж
@@ -122,7 +145,7 @@ export const MovieReducer = createReducer(
       getExternalIDs: getExternalIDs,
     };
   }),
-  // помилка при завантаженні інформації про команду фільму
+  // помилка при завантаження ідентифікаторів соц.мереж
   on(MovieActions.loadExternalIDsFailure, (state, { error }) => {
     return {
       ...state,
@@ -143,6 +166,44 @@ export const MovieReducer = createReducer(
       ...state,
       error: error,
       getGenres: null,
+    };
+  }),
+
+  // успішне завантаження фільмів або серіалів
+  on(
+    MovieActions.loadSelectMoviesOrSeriesSuccess,
+    (state, { selectMoviesOrSeries }) => {
+      return {
+        ...state,
+        selectMoviesOrSeries: selectMoviesOrSeries,
+      };
+    }
+  ),
+  // помилка при завантаженні фільмів або серіалів
+  on(MovieActions.loadSelectMoviesOrSeriesFailure, (state, { error }) => {
+    return {
+      ...state,
+      error: error,
+      selectMoviesOrSeries: null,
+    };
+  }),
+
+  // успішний пошук фільмів та серіалів
+  on(
+    MovieActions.loadResultSearchsMovieOrSeriesSuccess,
+    (state, { searchMoviesOrSeries }) => {
+      return {
+        ...state,
+        searchMoviesOrSeries: searchMoviesOrSeries,
+      };
+    }
+  ),
+  // помилка при пошуку фільмів та серіалів
+  on(MovieActions.loadResultSearchMoviesOrSeriesFailure, (state, { error }) => {
+    return {
+      ...state,
+      error: error,
+      searchMoviesOrSeries: null,
     };
   })
 );

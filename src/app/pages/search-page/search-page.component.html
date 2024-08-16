@@ -1,0 +1,26 @@
+<!-- Реалізувати пошук з сортуванням по відповідним категоріям -->
+<section class="search__main main search">
+  <h2 class="search__title title">Search</h2>
+  <div class="search__body body-search">
+    <div class="body-search__actions actions-body-search">
+      <form
+        class="actions-body-search__form"
+        [formGroup]="search"
+        (ngSubmit)="generalSearch()"
+      >
+        <input
+          type="text"
+          placeholder="Search by MoonFlix.."
+          [formControl]="search.controls.searchedFragment"
+        />
+        <button type="submit" [disabled]="!search.valid">Search</button>
+      </form>
+      <div class="actions-body-search__buttons">
+        <app-tabs-button
+          [tabsButton]="tabsButton"
+          (onTabChange)="tabChange($event)"
+        />
+      </div>
+    </div>
+  </div>
+</section>

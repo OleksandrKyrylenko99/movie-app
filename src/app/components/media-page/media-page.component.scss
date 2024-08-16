@@ -1,0 +1,8 @@
+.media-page {
+  // .media-page__content
+  &__content {
+    display: flex;
+    flex-direction: column;
+    gap: 25px;
+  }
+}

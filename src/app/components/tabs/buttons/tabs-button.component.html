@@ -1,0 +1,24 @@
+<ul>
+  @for(tab of tabsButton;track tab; let idx = $index){
+  <li>
+    <button
+      class="actions-body-search__button"
+      [ngClass]="
+        activatedTab === tab.type_media
+          ? 'actions-body-search__button--active'
+          : ''
+      "
+      (click)="setTab(tab.type_media)"
+    >
+      {{ tab.value }} <span>0</span>
+    </button>
+  </li>
+  }
+</ul>
+
+<!-- <button class="actions-body-search__button actions-body-search__button--active">
+  Movie <span>0</span>
+</button>
+<button class="actions-body-search__button">Series <span>0</span></button>
+<button class="actions-body-search__button">Person <span>0</span></button>
+<button class="actions-body-search__button">Company <span>0</span></button> -->

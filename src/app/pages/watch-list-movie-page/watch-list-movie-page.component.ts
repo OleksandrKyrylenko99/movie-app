@@ -3,7 +3,7 @@ import { ClearObservableDirective } from '../../shared/clear-observable/clear-ob
 import { takeUntil } from 'rxjs';
 import { MovieInfo } from '../../types/movie-info.type';
 import { SelectedMovieListComponent } from '../../components/movies/selected-movie-list/selected-movie-list.component';
-import { MovieService } from '../../service/movie/movie.service';
+import { MediaManagementService } from '../../service/media-management/media-management.service';
 import { Store } from '@ngrx/store';
 import { selectMoviesListByType } from '../../store/selectors';
 import { LoaderComponent } from '../../components/loader/loader.component';
@@ -26,7 +26,10 @@ export class WatchListMoviePageComponent
 {
   movieList: MovieInfo[] = [];
   movieList$ = this.store.select(selectMoviesListByType);
-  constructor(public movieService: MovieService, private store: Store) {
+  constructor(
+    public MediaManagementService: MediaManagementService,
+    private store: Store
+  ) {
     super();
   }
   ngOnInit(): void {

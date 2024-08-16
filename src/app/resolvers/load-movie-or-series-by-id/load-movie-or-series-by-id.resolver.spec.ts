@@ -1,13 +1,12 @@
 import { TestBed } from '@angular/core/testing';
 import { ResolveFn } from '@angular/router';
 
-import { loadMovieByIdResolver } from './load-movie-by-id.resolver';
-import { MovieDetails } from '../../interface/movie-details';
+import { loadMovieOrSerieByIdResolver } from './load-movie-or-series-by-id.resolver';
 
 describe('resolveResolver', () => {
   const executeResolver: ResolveFn<Boolean> = (...resolverParameters) =>
     TestBed.runInInjectionContext(() =>
-      loadMovieByIdResolver(...resolverParameters)
+      loadMovieOrSerieByIdResolver(...resolverParameters)
     );
 
   beforeEach(() => {

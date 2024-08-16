@@ -1,0 +1,132 @@
+import { Component, Input, OnDestroy, OnInit } from '@angular/core';
+import { TimeFormat } from '../../pipes/time-format/time-format.pipe';
+import {
+  PATH_IMAGE,
+  PATH_IMAGE_W300,
+  PATH_ORIGINAL_IMAGE,
+} from '../../constants/path-image';
+import { LoaderComponent } from '../../components/loader/loader.component';
+import { RoundRatingPipe } from '../../pipes/round-rating/round-rating.pipe';
+import { ExtractYearPipe } from '../../pipes/extract-year/extract-year.pipe';
+import {
+  AsyncPipe,
+  DecimalPipe,
+  NgStyle,
+  TitleCasePipe,
+} from '@angular/common';
+import { MovieDetails } from '../../interface/movie-details';
+import { Store } from '@ngrx/store';
+import {
+  selectExternalIDs,
+  selectMovieDetails,
+  selectMovieOrSerieDetailsTeam,
+  selectSeriesDetails,
+} from '../../store/selectors';
+import { map, takeUntil } from 'rxjs';
+import { ClearObservableDirective } from '../../shared/clear-observable/clear-observable.directive';
+import { MediaManagementService } from '../../service/media-management/media-management.service';
+import { MatIcon } from '@angular/material/icon';
+import { ActorsList } from '../../types/actors-list';
+import { ExternalIds } from '../../types/externalIds';
+import { SeriesDetails } from '../../interface/series-details';
+import { SnackBarService } from '../../service/snack-bar/snack-bar.service';
+@Component({
+  selector: 'app-movie-or-series-details',
+  standalone: true,
+  imports: [
+    TimeFormat,
+    LoaderComponent,
+    RoundRatingPipe,
+    ExtractYearPipe,
+    TitleCasePipe,
+    AsyncPipe,
+    NgStyle,
+    MatIcon,
+    RoundRatingPipe,
+    DecimalPipe,
+  ],
+  templateUrl: './movie-or-series-details.component.html',
+  styleUrl: './movie-or-series-details.component.scss',
+})
+export class MovieOrSeriesDetailsComponent
+  extends ClearObservableDirective
+  implements OnInit, OnDestroy
+{
+  @Input() mediaType: string = '';
+  path = PATH_IMAGE;
+  pathOriginalImage = PATH_ORIGINAL_IMAGE;
+  pathW300 = PATH_IMAGE_W300;
+  movie: MovieDetails | null = null;
+  series: SeriesDetails | null = null;
+  detailsTeam: ActorsList[] | null = null;
+  externalId: ExternalIds | null = null;
+  constructor(
+    private store: Store,
+    public MediaManagementService: MediaManagementService,
+    private snackBarService: SnackBarService
+  ) {
+    super();
+  }
+  ngOnInit(): void {
+    this.loadDetails();
+    this.loadMovieOrSeriesDetailsTeam();
+    this.loadExternalIDs();
+  }
+  private loadExternalIDs() {
+    this.store
+      .select(selectExternalIDs)
+      .pipe(takeUntil(this.destroy$))
+      .subscribe((res) => {
+        if (res) {
+          this.externalId = res;
+        }
+      });
+  }
+  // метод не оптимальний, зробити рефакторинг
+  private loadDetails(): void {
+    if (this.mediaType === 'movie') {
+      this.store
+        .select(selectMovieDetails)
+        .pipe(takeUntil(this.destroy$))
+        .subscribe((details) => {
+          if (details) {
+            this.movie = details;
+          }
+        });
+    } else {
+      this.store
+        .select(selectSeriesDetails)
+        .pipe(takeUntil(this.destroy$))
+        .subscribe((details) => {
+          if (details) {
+            this.series = details;
+          }
+        });
+    }
+  }
+  loadMovieOrSeriesDetailsTeam() {
+    this.store
+      .select(selectMovieOrSerieDetailsTeam)
+      .pipe(
+        map((details) => details?.cast?.slice(0, 4)),
+        takeUntil(this.destroy$)
+      )
+      .subscribe((details) => {
+        if (details) {
+          this.detailsTeam = details;
+        }
+      });
+  }
+  openSocialMedia(nameSocialMedia: string, externalId: string) {
+    if (externalId !== null) {
+      window.open(`https://www.${nameSocialMedia}.com/${externalId}`);
+    } else {
+      this.snackBarService.openSnackBar('Page Not Found', 'Close');
+    }
+  }
+  showAllCrew() {}
+  getBackgroundGradient(value: number): string {
+    const degree = (value / 10) * 360;
+    return `conic-gradient(#f15667 ${degree}deg, #424a4c 0deg)`;
+  }
+}

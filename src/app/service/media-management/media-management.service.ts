@@ -1,19 +1,21 @@
 import { Injectable, signal } from '@angular/core';
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
-import { Observable, catchError, finalize, map, take, tap } from 'rxjs';
+import { Observable, catchError, map, take } from 'rxjs';
 import { MovieApiModel } from '../../interface/movie-api-model/movie-api-model.interface';
 import { environment } from '../../../environments/environment';
 import { MovieDetails } from '../../interface/movie-details';
 import { AuthService } from '../auth/auth.service';
 import { MovieInfo } from '../../types/movie-info.type';
-import { AddMovieToFavoritesResponse } from '../../types/add-movie-to-favorites-response';
 import { MovieDetailsTeam } from '../../interface/movie-details-team';
 import { ExternalIds } from '../../types/externalIds';
+import { GetParams } from '../../types/get-params-media';
+import { SeriesDetails } from '../../interface/series-details';
+import { bodyParams } from '../../helper/body-params';
 
 @Injectable({
   providedIn: 'root',
 })
-export class MovieService {
+export class MediaManagementService {
   // сигнал для відображення лоадера
   isShowLoaderSignal = signal(false);
   // accountId для роботи з вибраними фільмами
@@ -21,36 +23,15 @@ export class MovieService {
     .pipe(take(1))
     .subscribe((user) => user?.accountId);
   constructor(private _http: HttpClient, private authService: AuthService) {}
-  bodyParams(id: number) {
-    return {
-      addFavoriteList: {
-        media_type: 'movie',
-        media_id: id,
-        favorite: true,
-      },
-      addWatchList: {
-        media_type: 'movie',
-        media_id: id,
-        watchlist: true,
-      },
-      removeFavoriteList: {
-        media_type: 'movie',
-        media_id: id,
-        favorite: false,
-      },
-      removeWatchList: {
-        media_type: 'movie',
-        media_id: id,
-        watchlist: false,
-      },
-    };
-  }
 
   // отримання списку фільмів за відповідною категорію(now_playing, popular,top_rated)
-  getMoviesByCategories(category: string): Observable<MovieApiModel> {
+  getMoviesByCategories(
+    mediaType: string,
+    category: string
+  ): Observable<MovieApiModel> {
     return this._http
       .get<MovieApiModel>(
-        `${environment.dbUrl}/movie/${category}${environment.apiKey}`
+        `${environment.dbUrl}/${mediaType}/${category}${environment.apiKey}`
       )
       .pipe(
         map((response) => {
@@ -65,11 +46,11 @@ export class MovieService {
         })
       );
   }
-  // отримання фільму за його id
-  getMovieById(id: number): Observable<MovieDetails> {
+  // отримання фільму/серіалу за його id
+  getMovieOrSeriesById(id: number, mediaType: string): Observable<any> {
     return this._http
-      .get<MovieDetails>(
-        `${environment.dbUrl}/movie/${id}${environment.apiKey}`
+      .get<MovieDetails | SeriesDetails>(
+        `${environment.dbUrl}/${mediaType}/${id}${environment.apiKey}`
       )
       .pipe(
         catchError((err: HttpErrorResponse) => {
@@ -85,8 +66,8 @@ export class MovieService {
     return this._http.post<void>(
       `${environment.dbAccountUrl}/${this.accountId}/${selectType}`,
       selectType === 'favorite'
-        ? this.bodyParams(id).addFavoriteList
-        : this.bodyParams(id).addWatchList
+        ? bodyParams(id).addFavoriteList
+        : bodyParams(id).addWatchList
     );
   }
   // отримання списку вибраних за типами(favoriteList, watchList)
@@ -110,15 +91,18 @@ export class MovieService {
     return this._http.post<void>(
       `${environment.dbAccountUrl}/${this.accountId}/${selectType}`,
       selectType === 'favorite'
-        ? this.bodyParams(id).removeFavoriteList
-        : this.bodyParams(id).removeWatchList
+        ? bodyParams(id).removeFavoriteList
+        : bodyParams(id).removeWatchList
     );
   }
 
   // отримання деталів про команду фільму
-  getMovieDetailsTeam(id: number): Observable<MovieDetailsTeam> {
+  getMovieDetailsTeam(
+    id: number,
+    mediaType: string
+  ): Observable<MovieDetailsTeam> {
     return this._http
-      .get<MovieDetailsTeam>(`${environment.dbUrl}/movie/${id}/credits`)
+      .get<MovieDetailsTeam>(`${environment.dbUrl}/${mediaType}/${id}/credits`)
       .pipe(
         catchError((err: HttpErrorResponse) => {
           throw new Error(err.message);
@@ -126,11 +110,10 @@ export class MovieService {
       );
   }
   // отримання ідентифікаторів соц.мереж
-  getExternalIDs(id: number): Observable<ExternalIds> {
+  getExternalIDs(id: number, mediaType: string): Observable<ExternalIds> {
     return this._http
-      .get<ExternalIds>(`${environment.dbUrl}/movie/${id}/external_ids`)
+      .get<ExternalIds>(`${environment.dbUrl}/${mediaType}/${id}/external_ids`)
       .pipe(
-        tap((res) => console.log(res)),
         catchError((err: HttpErrorResponse) => {
           throw new Error(err.message);
         })
@@ -138,8 +121,18 @@ export class MovieService {
   }
   // отримання списку жанрів
   getGenresList(typeGenresList: string): Observable<any> {
+    return this._http.get<any>(
+      `${environment.dbGenresUrl}/${typeGenresList}/list`
+    );
+  }
+  // отримання фільмів або серіалів
+  getMediaList(typeMedia: string, params: GetParams): Observable<any> {
     return this._http
-      .get<any>(`${environment.dbGenresUrl}/${typeGenresList}/list`)
-      .pipe(tap((res) => console.log(res)));
+      .get<any>(`${environment.dbUrl}/discover/${typeMedia}`, { params })
+      .pipe(
+        map((res) => {
+          return res.results;
+        })
+      );
   }
 }

@@ -1,9 +1,12 @@
-@if(movieService.isShowLoaderSignal()){
+@if(MediaManagementService.isShowLoaderSignal()){
 <app-loader></app-loader>
 } @if(selectedMovie$ | async; as movieData){
-<app-movie-list
-  [movies]="movieData"
-  [title]="'Now Playing'"
-  [customClass]="'movie__cards'"
-/>
+<section class="main">
+  <app-movie-list
+    [movies]="movieData"
+    [title]="'Now Playing'"
+    [customClass]="'movie__cards'"
+  />
+</section>
+
 }

@@ -1,0 +1,130 @@
+.search {
+  // .search__main
+
+  &__main {
+  }
+
+  // .search__title
+
+  &__title {
+  }
+
+  // .search__body
+
+  &__body {
+  }
+}
+.main {
+}
+.title {
+}
+.body-search {
+  // .body-search__actions
+
+  &__actions {
+  }
+}
+.actions-body-search {
+  display: flex;
+  align-items: center;
+  gap: 30px;
+  // .actions-body-search__form
+
+  &__form {
+    display: flex;
+    background-color: #3c3b3b;
+    min-height: 42px;
+    border-radius: 6px;
+    padding: 6px;
+    flex: 1 1 20%;
+    input {
+      flex: 1 1 auto;
+      background-color: #3c3b3b;
+      border: none;
+      outline: none;
+      color: #fff;
+      font-size: 17px;
+      padding: 0px 16px 0px 10px;
+      &::placeholder {
+        color: #fff;
+      }
+    }
+    button {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      background-color: #6e6a6a;
+      border: 1px solid transparent;
+      padding: 5px 25px;
+      border-radius: 8px;
+      color: #fff;
+      transition: 0.4s;
+      @media (any-hover: hover) {
+        &:hover {
+          background-color: transparent;
+          border: 1px solid #6e6a6a;
+        }
+      }
+    }
+  }
+
+  // .actions-body-search__buttons
+
+  &__buttons {
+    display: flex;
+    align-items: center;
+    gap: 30px;
+    flex: 1 1 auto;
+  }
+
+  // .actions-body-search__button
+
+  &__button {
+    display: inline-flex;
+    min-height: 42px;
+    padding: 2px 25px;
+    align-items: center;
+    justify-content: center;
+    border-radius: 10px;
+    background-color: transparent;
+    border: 1px solid #ff515a;
+    transition: 0.3s;
+    letter-spacing: 0.1em;
+    color: #fff;
+    position: relative;
+    &--active {
+      background-color: #ff515a;
+      border: 1px solid transparent;
+      &:hover {
+        background-color: transparent;
+        border: 1px solid #ff515a;
+      }
+    }
+    span {
+      position: absolute;
+      top: -25%;
+      right: -8%;
+      padding: 5px 7px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      border-radius: 5px;
+      font-size: 10px;
+      color: #fff;
+      letter-spacing: normal;
+      background-color: rgb(173, 49, 49);
+      font-weight: 600;
+    }
+    @media (any-hover: hover) {
+      &:hover {
+        background-color: #ff515a;
+        border: 1px solid transparent;
+      }
+    }
+  }
+
+  // .actions-body-search__button--active
+
+  &__button--active {
+  }
+}

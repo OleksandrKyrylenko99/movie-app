@@ -6,7 +6,6 @@ import { Pipe, PipeTransform } from '@angular/core';
 })
 export class RoundRatingPipe implements PipeTransform {
   transform(value: number): string {
-    // const newValue = parseFloat(value);
     if (!isNaN(value)) {
       return (Math.round(value * 10) / 10).toFixed(1);
     }

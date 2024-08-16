@@ -7,7 +7,7 @@ import { MovieInfo } from '../../../types/movie-info.type';
 import { RoundRatingPipe } from '../../../pipes/round-rating/round-rating.pipe';
 import { ExtractYearPipe } from '../../../pipes/extract-year/extract-year.pipe';
 import { RouterLink } from '@angular/router';
-import { MovieService } from '../../../service/movie/movie.service';
+import { MediaManagementService } from '../../../service/media-management/media-management.service';
 
 @Component({
   selector: 'app-selected-movie-list',
@@ -28,7 +28,7 @@ export class SelectedMovieListComponent {
   @Input() title!: string;
   @Output() remove = new EventEmitter();
   path = PATH_IMAGE;
-  constructor(public movieService: MovieService) {}
+  constructor(public MediaManagementService: MediaManagementService) {}
   removeMovie(id: number) {
     this.remove.emit(id);
   }

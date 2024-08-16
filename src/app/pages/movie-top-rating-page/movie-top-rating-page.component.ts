@@ -3,7 +3,7 @@ import { MovieListComponent } from '../../components/movies/movie-list/movie-lis
 import { Store } from '@ngrx/store';
 import { selectMovieByCategory } from '../../store/selectors';
 import { AsyncPipe } from '@angular/common';
-import { MovieService } from '../../service/movie/movie.service';
+import { MediaManagementService } from '../../service/media-management/media-management.service';
 import { LoaderComponent } from '../../components/loader/loader.component';
 
 @Component({
@@ -15,5 +15,8 @@ import { LoaderComponent } from '../../components/loader/loader.component';
 })
 export class MovieTopRatingPageComponent {
   selectedMovie$ = this.store.select(selectMovieByCategory);
-  constructor(private store: Store, public movieService: MovieService) {}
+  constructor(
+    private store: Store,
+    public MediaManagementService: MediaManagementService
+  ) {}
 }

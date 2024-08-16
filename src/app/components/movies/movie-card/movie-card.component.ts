@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { MovieInfo } from '../../../types/movie-info.type';
 import { NgClass } from '@angular/common';
 import { TitleCaseWordsPipe } from '../../../pipes/title-words/title-case-words.pipe';
@@ -10,9 +10,10 @@ import { RouterLink, RouterOutlet } from '@angular/router';
 import { PATH_IMAGE } from '../../../constants/path-image';
 import { RoundRatingPipe } from '../../../pipes/round-rating/round-rating.pipe';
 import { ClearObservableDirective } from '../../../shared/clear-observable/clear-observable.directive';
-import { MovieService } from '../../../service/movie/movie.service';
+import { MediaManagementService } from '../../../service/media-management/media-management.service';
 import { Store } from '@ngrx/store';
 import { addMovieToSelectedList } from '../../../store/actions';
+import { SeriesInfo } from '../../../types/series-info';
 
 @Component({
   selector: 'app-movie-card',
@@ -31,12 +32,21 @@ import { addMovieToSelectedList } from '../../../store/actions';
   templateUrl: './movie-card.component.html',
   styleUrl: './movie-card.component.scss',
 })
-export class MovieCardComponent extends ClearObservableDirective {
-  @Input() data!: MovieInfo;
+export class MovieCardComponent
+  extends ClearObservableDirective
+  implements OnInit
+{
+  @Input() movieData!: MovieInfo;
+  @Input() serieData!: SeriesInfo;
+  @Input() media!: string;
   path = PATH_IMAGE;
-  constructor(private movieService: MovieService, private store: Store) {
+  constructor(
+    private MediaManagementService: MediaManagementService,
+    private store: Store
+  ) {
     super();
   }
+  ngOnInit(): void {}
 
   addMovie(id: number, selectType: string) {
     this.store.dispatch(
@@ -45,5 +55,11 @@ export class MovieCardComponent extends ClearObservableDirective {
         typeOfSelectedMovieList: selectType,
       })
     );
+  }
+  getTitleOrName() {
+    const movieData = this.movieData as MovieInfo;
+    const serieData = this.serieData as SeriesInfo;
+
+    return movieData ? movieData.title : serieData.name;
   }
 }
