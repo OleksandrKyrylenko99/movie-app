@@ -34,11 +34,11 @@ export const selectGenres = createSelector(
   (state) => state.genresList
 );
 
-export const selectMediaMovies = createSelector(
+export const selectMoviesOrSeries = createSelector(
   selectState,
-  (state) => state.selectMediaMovies
+  (state) => state.selectMoviesOrSeries
 );
-export const selectMediaSeries = createSelector(
+export const selectMoviesOrSeriesSearch = createSelector(
   selectState,
-  (state) => state.selectMediaSeries
+  (state) => state.searchMoviesOrSeries
 );

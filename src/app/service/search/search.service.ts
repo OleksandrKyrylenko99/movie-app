@@ -11,32 +11,24 @@ import { HttpClient } from '@angular/common/http';
 })
 export class SearchService {
   constructor(private _http: HttpClient) {}
-  searchMovie(query: string): Observable<MovieInfo[]> {
+  getMediaSearch(
+    query: string,
+    typeMedia: string
+  ): Observable<Person[] | MovieInfo[] | SeriesInfo[]> {
     return this._http
       .get<any>(
-        `${environment.dbSearchUrl}/movie?query=${query}&api_key=${environment.apiKey}`
+        `${environment.dbSearchUrl}/${typeMedia}?query=${query}&api_key=${environment.apiKey}`
       )
       .pipe(map((response) => response.results));
   }
-  searchSeries(query: string): Observable<SeriesInfo[]> {
-    return this._http
-      .get<any>(
-        `${environment.dbSearchUrl}/tv?query=${query}&api_key=${environment.apiKey}`
-      )
-      .pipe(map((response) => response.results));
-  }
-  searchPerson(query: string): Observable<Person[]> {
-    return this._http
-      .get<any>(
-        `${environment.dbSearchUrl}/person?query=${query}&api_key=${environment.apiKey}`
-      )
-      .pipe(map((response) => response.results));
-  }
-  searchAll(query: string) {
+  generalSearch(query: string) {
+    const searchMovie = this.getMediaSearch(query, 'movie');
+    const searchTv = this.getMediaSearch(query, 'tv');
+    const searchPerson = this.getMediaSearch(query, 'person');
     return forkJoin({
-      movie: this.searchMovie(query),
-      tv: this.searchSeries(query),
-      person: this.searchPerson(query),
+      movie: searchMovie,
+      tv: searchTv,
+      person: searchPerson,
     });
   }
 }

@@ -4,7 +4,7 @@ import { Store } from '@ngrx/store';
 import { selectMovieByCategory } from '../../store/selectors';
 import { AsyncPipe } from '@angular/common';
 import { LoaderComponent } from '../../components/loader/loader.component';
-import { MovieService } from '../../service/movie/movie.service';
+import { MediaManagementService } from '../../service/media-management/media-management.service';
 
 @Component({
   selector: 'app-movie-popular-page',
@@ -15,5 +15,8 @@ import { MovieService } from '../../service/movie/movie.service';
 })
 export class MoviePopularPageComponent {
   selectedMovie$ = this.store.select(selectMovieByCategory);
-  constructor(private store: Store, public movieService: MovieService) {}
+  constructor(
+    private store: Store,
+    public MediaManagementService: MediaManagementService
+  ) {}
 }

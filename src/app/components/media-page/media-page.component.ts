@@ -8,7 +8,7 @@ import {
 } from '@angular/core';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatSelectModule } from '@angular/material/select';
-import { MovieService } from '../../service/movie/movie.service';
+import { MediaManagementService } from '../../service/media-management/media-management.service';
 import { MatIcon } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
 import { AsyncPipe, NgClass } from '@angular/common';
@@ -18,15 +18,18 @@ import { MovieInfo } from '../../types/movie-info.type';
 import { FormsModule } from '@angular/forms';
 import { Store } from '@ngrx/store';
 import {
-  loadSelectMediaMovies,
-  loadSelectMediaSeries,
+  loadResultSearchMoviesOrSeries,
+  loadSelectMoviesOrSeries,
 } from '../../store/actions';
-import { selectMediaMovies, selectMediaSeries } from '../../store/selectors';
+import {
+  selectMoviesOrSeries,
+  selectMoviesOrSeriesSearch,
+} from '../../store/selectors';
 import { NotFindComponent } from '../not-find/not-find.component';
 import { SeriesInfo } from '../../types/series-info';
 import { GetParams } from '../../types/get-params-media';
 import { ClearObservableDirective } from '../../shared/clear-observable/clear-observable.directive';
-import { takeUntil } from 'rxjs';
+import { takeUntil, tap } from 'rxjs';
 import { MediaPageHeaderComponent } from '../media-page-header/media-page-header.component';
 import { SearchService } from '../../service/search/search.service';
 
@@ -61,9 +64,8 @@ export class MediaPageComponent
   @Input() typeMedia!: string;
   @Input() title!: string;
   constructor(
-    public movieService: MovieService,
+    public MediaManagementService: MediaManagementService,
     private store: Store,
-    private searchService: SearchService,
     private cdr: ChangeDetectorRef
   ) {
     super();
@@ -77,37 +79,35 @@ export class MediaPageComponent
   sort(typeSorting: string) {
     this.getMediaList('', typeSorting);
   }
-  // метод не оптимальний, зробити рефакторинг та винести запит в store
   searchMedia(searchStr: string) {
-    if (!searchStr.length) {
+    if (!searchStr.length || !searchStr.trim()) {
       this.getMediaList();
       return;
-    }
-    if (this.typeMedia === 'movie') {
-      this.searchService
-        .searchMovie(searchStr)
-        .pipe(takeUntil(this.destroy$))
-        .subscribe((res) => {
-          if (res) {
-            this.dataMovie = res;
-            this.emptyData.set(!Boolean(res.length));
-            this.cdr.detectChanges();
-          }
-        });
     } else {
-      this.searchService
-        .searchSeries(searchStr)
-        .pipe(takeUntil(this.destroy$))
-        .subscribe((res) => {
+      this.store.dispatch(
+        loadResultSearchMoviesOrSeries({
+          typeMedia: this.typeMedia,
+          query: searchStr,
+        })
+      );
+    }
+    this.searchByMediaType();
+  }
+  searchByMediaType() {
+    this.store
+      .select(selectMoviesOrSeriesSearch)
+      .pipe(
+        takeUntil(this.destroy$),
+        tap((res) => {
           if (res) {
-            this.dataSeries = res;
-            this.emptyData.set(!Boolean(res.length));
+            this.handleMediaResponse(res);
             this.cdr.detectChanges();
           }
-        });
-    }
+        })
+      )
+      .subscribe();
   }
-  // метод не оптимальний, зробити рефакторинг
+
   getMediaList(
     idGenre: string = '',
     sort_by: string = '',
@@ -118,35 +118,32 @@ export class MediaPageComponent
       with_genres: idGenre,
       sort_by: sort_by,
     };
-    if (this.typeMedia === 'movie') {
-      this.store.dispatch(
-        loadSelectMediaMovies({ typeMedia: this.typeMedia, params: params })
-      );
-      this.store.select(selectMediaMovies).subscribe(
-        (res) => {
+    this.store.dispatch(
+      loadSelectMoviesOrSeries({ typeMedia: this.typeMedia, params: params })
+    );
+    this.showByMediaType();
+  }
+
+  showByMediaType() {
+    this.store
+      .select(selectMoviesOrSeries)
+      .pipe(
+        takeUntil(this.destroy$),
+        tap((res) => {
           if (res) {
-            this.dataMovie = res;
-            this.emptyData.set(!Boolean(res.length));
+            this.handleMediaResponse(res);
           }
-        },
-        (error) => (this.hasError = true)
-      );
+        })
+      )
+      .subscribe();
+  }
+  handleMediaResponse(response: MovieInfo[] | SeriesInfo[]) {
+    if (this.typeMedia === 'movie') {
+      this.dataMovie = response as MovieInfo[];
+      this.emptyData.set(!Boolean(response.length));
     } else {
-      this.store.dispatch(
-        loadSelectMediaSeries({ typeMedia: this.typeMedia, params: params })
-      );
-      this.store
-        .select(selectMediaSeries)
-        .pipe(takeUntil(this.destroy$))
-        .subscribe(
-          (res) => {
-            if (res) {
-              this.dataSeries = res;
-              this.emptyData.set(!Boolean(res.length));
-            }
-          },
-          (error) => (this.hasError = true)
-        );
+      this.dataSeries = response as SeriesInfo[];
+      this.emptyData.set(!Boolean(response.length));
     }
   }
 }

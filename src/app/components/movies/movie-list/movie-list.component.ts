@@ -2,7 +2,7 @@ import { Component, Input } from '@angular/core';
 import { MovieInfo } from '../../../types/movie-info.type';
 import { MovieCardComponent } from '../movie-card/movie-card.component';
 import { NgClass } from '@angular/common';
-import { MovieService } from '../../../service/movie/movie.service';
+import { MediaManagementService } from '../../../service/media-management/media-management.service';
 import { LoaderComponent } from '../../loader/loader.component';
 import { SeriesInfo } from '../../../types/series-info';
 
@@ -20,5 +20,5 @@ export class MovieListComponent {
   @Input() title!: string;
   @Input() customClass: string = '';
 
-  constructor(public moviesService: MovieService) {}
+  constructor(public moviesService: MediaManagementService) {}
 }

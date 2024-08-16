@@ -61,15 +61,15 @@ export class SearchPageComponent
     super();
   }
   ngOnInit(): void {}
-  searchAll() {
+  generalSearch() {
     if (this.search.value.searchedFragment) {
       this.submitted = false;
       const query = this.search.value.searchedFragment;
       this.searchService
-        .searchAll(query)
+        .generalSearch(query)
         .pipe(takeUntil(this.destroy$))
         .subscribe((res) => {
-          if (res) this.searchResult = res;
+          // if (res) this.searchResult = res;
         });
     }
   }

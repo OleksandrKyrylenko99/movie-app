@@ -1,10 +1,10 @@
 <!-- зробити рефакторінг -->
-@if(movieService.isShowLoaderSignal()){
+@if(MediaManagementService.isShowLoaderSignal()){
 <app-loader></app-loader>
 }
 <section class="main__media-page main media-page">
   <div class="media-page__header"></div>
-  <section class="media-page__content content-media-page">
+  <div class="media-page__content content-media-page">
     <app-media-page-header
       [title]="title"
       (filter)="filter($event)"
@@ -29,7 +29,7 @@
     }@else{
     <app-not-find />
     }
-  </section>
+  </div>
 </section>
 @if(hasError) {
 <p class="error">Невідома помилка</p>

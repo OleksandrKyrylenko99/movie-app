@@ -6,19 +6,18 @@ import {
   Input,
   OnInit,
   Output,
-  viewChild,
 } from '@angular/core';
 import { GenresList } from '../../types/genres';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatSelectModule } from '@angular/material/select';
-import { MovieService } from '../../service/movie/movie.service';
+import { MediaManagementService } from '../../service/media-management/media-management.service';
 import { MatIcon } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
 import { MatMenuModule } from '@angular/material/menu';
 import { AsyncPipe, NgClass } from '@angular/common';
 import { FormControl, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { Store } from '@ngrx/store';
-import { MatAccordion, MatExpansionModule } from '@angular/material/expansion';
+import { MatExpansionModule } from '@angular/material/expansion';
 import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
 
@@ -28,7 +27,6 @@ import { NotFindComponent } from '../not-find/not-find.component';
 import { ClearObservableDirective } from '../../shared/clear-observable/clear-observable.directive';
 import { takeUntil, tap } from 'rxjs';
 import { MatRadioModule } from '@angular/material/radio';
-import { SearchService } from '../../service/search/search.service';
 
 @Component({
   selector: 'app-media-page-header',
@@ -92,8 +90,10 @@ export class MediaPageHeaderComponent
       ],
     },
   ];
-  accordion = viewChild.required(MatAccordion);
-  constructor(public movieService: MovieService, private store: Store) {
+  constructor(
+    public MediaManagementService: MediaManagementService,
+    private store: Store
+  ) {
     super();
     this.searchControl.valueChanges
       .pipe(

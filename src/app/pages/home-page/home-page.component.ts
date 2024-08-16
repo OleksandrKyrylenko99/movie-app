@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { MovieService } from '../../service/movie/movie.service';
+import { MediaManagementService } from '../../service/media-management/media-management.service';
 import { Store } from '@ngrx/store';
 import { loadGenres } from '../../store/actions';
 import { selectGenres } from '../../store/selectors';
@@ -15,7 +15,7 @@ import { GenresList } from '../../types/genres';
 })
 export class HomePageComponent {
   // genresList: GenresList | null = null;
-  // constructor(private store: Store, private movieService: MovieService) {}
+  // constructor(private store: Store, private MediaManagementService: MediaManagementService) {}
   // ngOnInit(): void {
   //   this.store.select(selectGenres).subscribe((res) => {
   //     if (res) {

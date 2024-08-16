@@ -10,7 +10,7 @@ import { RouterLink, RouterOutlet } from '@angular/router';
 import { PATH_IMAGE } from '../../../constants/path-image';
 import { RoundRatingPipe } from '../../../pipes/round-rating/round-rating.pipe';
 import { ClearObservableDirective } from '../../../shared/clear-observable/clear-observable.directive';
-import { MovieService } from '../../../service/movie/movie.service';
+import { MediaManagementService } from '../../../service/media-management/media-management.service';
 import { Store } from '@ngrx/store';
 import { addMovieToSelectedList } from '../../../store/actions';
 import { SeriesInfo } from '../../../types/series-info';
@@ -40,7 +40,10 @@ export class MovieCardComponent
   @Input() serieData!: SeriesInfo;
   @Input() media!: string;
   path = PATH_IMAGE;
-  constructor(private movieService: MovieService, private store: Store) {
+  constructor(
+    private MediaManagementService: MediaManagementService,
+    private store: Store
+  ) {
     super();
   }
   ngOnInit(): void {}

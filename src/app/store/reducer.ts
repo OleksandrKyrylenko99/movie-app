@@ -12,8 +12,8 @@ export const MovieReducer = createReducer(
     MovieActions.loadSelectedSeriesById,
     MovieActions.loadSelectedMoviesListByType,
     MovieActions.loadMovieOrSerieDetailsTeam,
-    MovieActions.loadSelectMediaMovies,
-    MovieActions.loadSelectMediaSeries,
+    MovieActions.loadSelectMoviesOrSeries,
+    MovieActions.loadResultSearchMoviesOrSeries,
     (state) => ({
       ...state,
       selectedMovieById: null,
@@ -21,8 +21,8 @@ export const MovieReducer = createReducer(
       moviesList: null,
       selectedMoviesListByType: null,
       getDetailsMovieOrSerieTeam: null,
-      selectMediaMovies: null,
-      selectMediaSeries: null,
+      selectMoviesOrSeries: null,
+      searchMoviesOrSeries: null,
     })
   ),
   // успішне завантаження фільмів за категоріями
@@ -168,40 +168,42 @@ export const MovieReducer = createReducer(
       getGenres: null,
     };
   }),
-  // успішне завантаження медіа фільми
+
+  // успішне завантаження фільмів або серіалів
   on(
-    MovieActions.loadSelectMediaMoviesSuccess,
-    (state, { selectMediaMovies }) => {
+    MovieActions.loadSelectMoviesOrSeriesSuccess,
+    (state, { selectMoviesOrSeries }) => {
       return {
         ...state,
-        selectMediaMovies: selectMediaMovies,
+        selectMoviesOrSeries: selectMoviesOrSeries,
       };
     }
   ),
-  // помилка при завантаженні медіа(фільми/серіали)
-  on(MovieActions.loadSelectMediaMoviesFailure, (state, { error }) => {
+  // помилка при завантаженні фільмів або серіалів
+  on(MovieActions.loadSelectMoviesOrSeriesFailure, (state, { error }) => {
     return {
       ...state,
       error: error,
-      selectMediaMovies: null,
+      selectMoviesOrSeries: null,
     };
   }),
-  // успішне завантаження медіа серіали
+
+  // успішний пошук фільмів та серіалів
   on(
-    MovieActions.loadSelectMediaSeriesSuccess,
-    (state, { selectMediaSeries }) => {
+    MovieActions.loadResultSearchsMovieOrSeriesSuccess,
+    (state, { searchMoviesOrSeries }) => {
       return {
         ...state,
-        selectMediaSeries: selectMediaSeries,
+        searchMoviesOrSeries: searchMoviesOrSeries,
       };
     }
   ),
-  // помилка при завантаженні медіа(фільми/серіали)
-  on(MovieActions.loadSelectMediaSeriesFailure, (state, { error }) => {
+  // помилка при пошуку фільмів та серіалів
+  on(MovieActions.loadResultSearchMoviesOrSeriesFailure, (state, { error }) => {
     return {
       ...state,
       error: error,
-      selectMediaSeries: null,
+      searchMoviesOrSeries: null,
     };
   })
 );

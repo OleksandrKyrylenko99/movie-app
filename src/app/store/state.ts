@@ -16,8 +16,8 @@ export interface MovieState {
   getDetailsMovieOrSerieTeam: MovieDetailsTeam | null;
   getExternalIDs: ExternalIds | null;
   genresList: GenresList | null;
-  selectMediaMovies: MovieInfo[] | null;
-  selectMediaSeries: SeriesInfo[] | null;
+  selectMoviesOrSeries: MovieInfo[] | SeriesInfo[] | null;
+  searchMoviesOrSeries: MovieInfo[] | SeriesInfo[] | null;
 }
 
 export const initialState: MovieState = {
@@ -29,7 +29,7 @@ export const initialState: MovieState = {
   getDetailsMovieOrSerieTeam: null,
   getExternalIDs: null,
   genresList: null,
-  selectMediaMovies: null,
-  selectMediaSeries: null,
   selectedSeriesById: null,
+  searchMoviesOrSeries: null,
+  selectMoviesOrSeries: null,
 };

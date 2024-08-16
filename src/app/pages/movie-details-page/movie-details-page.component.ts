@@ -19,7 +19,7 @@ import { Store } from '@ngrx/store';
 import { selectExternalIDs, selectMovieDetails } from '../../store/selectors';
 import { map, takeUntil } from 'rxjs';
 import { ClearObservableDirective } from '../../shared/clear-observable/clear-observable.directive';
-import { MovieService } from '../../service/movie/movie.service';
+import { MediaManagementService } from '../../service/media-management/media-management.service';
 import { MatIcon } from '@angular/material/icon';
 import { ActorsList } from '../../types/actors-list';
 import { ExternalIds } from '../../types/externalIds';
@@ -53,7 +53,10 @@ export class MovieDetailsPageComponent {
   // movie: MovieDetails | null = null;
   // detailsTeam: ActorsList[] | null = null;
   // externalId: ExternalIds | null = null;
-  constructor(private store: Store, public movieService: MovieService) {
+  constructor(
+    private store: Store,
+    public MediaManagementService: MediaManagementService
+  ) {
     // super();
   }
   ngOnInit(): void {

@@ -134,36 +134,35 @@ export const loadGenresFailure = createAction(
   props<{ error: any }>()
 );
 
-// відображення фільмів
-export const loadSelectMediaMovies = createAction(
-  '[Media Items] load Select Media Movies',
+// завантаження фільмів або серіалів
+export const loadSelectMoviesOrSeries = createAction(
+  '[Movies or Series] load Select Movies Or Series',
   props<{
     typeMedia: string;
     params: GetParams;
   }>()
 );
-export const loadSelectMediaMoviesSuccess = createAction(
-  '[Media Movies] load Select Media Movies Success',
-  props<{ selectMediaMovies: MovieInfo[] | null }>()
+export const loadSelectMoviesOrSeriesSuccess = createAction(
+  '[Movies or Series] load Select Movies Or Series Success',
+  props<{ selectMoviesOrSeries: MovieInfo[] | SeriesInfo[] | null }>()
 );
-export const loadSelectMediaMoviesFailure = createAction(
-  '[Media Movies] load Select Media Movies Failure',
+export const loadSelectMoviesOrSeriesFailure = createAction(
+  '[Movies or Series] load Select Movies Or Series Failure',
   props<{ error: any }>()
 );
-
-// відображення серіалів
-export const loadSelectMediaSeries = createAction(
-  '[Media Items] load Select Media Series',
+// пошук фільмів та серіалів
+export const loadResultSearchMoviesOrSeries = createAction(
+  '[Search Movies or Series] load Result Search Movie Or Series',
   props<{
     typeMedia: string;
-    params: GetParams;
+    query: string;
   }>()
 );
-export const loadSelectMediaSeriesSuccess = createAction(
-  '[Media Series] load Select Media Series Success',
-  props<{ selectMediaSeries: SeriesInfo[] | null }>()
+export const loadResultSearchsMovieOrSeriesSuccess = createAction(
+  '[Search Movies or Series] lload Result Search Movie Or Series Success',
+  props<{ searchMoviesOrSeries: MovieInfo[] | SeriesInfo[] | null }>()
 );
-export const loadSelectMediaSeriesFailure = createAction(
-  '[Media Series] load Select Media Series Failure',
+export const loadResultSearchMoviesOrSeriesFailure = createAction(
+  '[Search Movies or Series] load Result Search Movie Or Series Failure',
   props<{ error: any }>()
 );

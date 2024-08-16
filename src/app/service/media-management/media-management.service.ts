@@ -15,10 +15,9 @@ import { bodyParams } from '../../helper/body-params';
 @Injectable({
   providedIn: 'root',
 })
-export class MovieService {
+export class MediaManagementService {
   // сигнал для відображення лоадера
   isShowLoaderSignal = signal(false);
-  emptyData = signal(false);
   // accountId для роботи з вибраними фільмами
   accountId = this.authService.user
     .pipe(take(1))
